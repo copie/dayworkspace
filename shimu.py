@@ -15,9 +15,6 @@ t.click()
 time.sleep(3)
 i = 1
 while True:
-    # nextButton.click()
-    #str = body.text
-    #strs = str.split('\n')
     soup = bs4.BeautifulSoup(browser.page_source, 'lxml')
     if len(soup.findAll('tbody')[4].findAll('tr')) < 100:
         break
