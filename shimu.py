@@ -16,7 +16,7 @@ time.sleep(3)
 i = 1
 while True:
     soup = bs4.BeautifulSoup(browser.page_source, 'lxml')
-    if len(soup.findAll('tbody')[4].findAll('tr')) < 100:
+    if len(soup.findAll('tbody')[4].findAll('tr')) < 100: # 有一个BUG最后一个页面没有抓取就结束了
         break
     for tmp in soup.findAll('tbody')[4].findAll('tr'):
         urllist.add(tmp.findAll('td')[1].find('a').get('href'))
