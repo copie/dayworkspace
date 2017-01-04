@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+# -------------------------------------------------------------------------
+#   程序：shimu.py
+#   版本：1.0
+#   作者：copie
+#   日期：编写日期2017/1/04
+#   语言：Python 3.5.x
+#   操作：python3 shimu.py
+#   功能：私募基金管理人综合查询详细信息url的抓取
+#
+# -------------------------------------------------------------------------
 from selenium import webdriver
 import time
 import bs4
@@ -16,8 +28,9 @@ time.sleep(3)
 i = 1
 while True:
     soup = bs4.BeautifulSoup(browser.page_source, 'lxml')
-    if len(soup.findAll('tbody')[4].findAll('tr')) < 100: # 有一个BUG最后一个页面没有抓取就结束了
+    if len(soup.findAll('tbody')[4].findAll('tr')) < 100:
         break
+        # 有一个BUG最后一个页面没有抓取就结束了
     for tmp in soup.findAll('tbody')[4].findAll('tr'):
         urllist.add(tmp.findAll('td')[1].find('a').get('href'))
     nextButton.click()
