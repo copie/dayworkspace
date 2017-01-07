@@ -1,6 +1,6 @@
 from PIL import Image
 import pytesseract
-image = Image.open('./破解验证码/1234.jpg')
+image = Image.open('./破解验证码/2.jpg')
 image = image.convert('L')
 
 image.show()
@@ -19,7 +19,8 @@ def binarizing(img, threshold):
     return img
 
 
-def depoint(img):  #input: gray image
+def depoint(img):  
+    # input: gray image
     pixdata = img.load()
     w, h = img.size
     for y in range(1, h - 1):
@@ -39,6 +40,6 @@ def depoint(img):  #input: gray image
 
 
 binarizing(image, 200).show()
-print(pytesseract.image_to_string(depoint(binarizing(image, 1))))
+print(pytesseract.image_to_string(depoint(binarizing(image, 140))))
 print('chen')
 image.show()
