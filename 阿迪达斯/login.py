@@ -10,6 +10,7 @@ def writetofile(filename, cookies):
 
 browser = webdriver.Chrome()
 browser.get('https://www.adidas.com.cn/customer/account/login/')
+# set_page_load_time()
 elem = browser.find_element_by_xpath('//*[@id="email"]')
 elem.send_keys('copie')
 # 查找用户名输入栏并输入用户名
