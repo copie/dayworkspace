@@ -43,3 +43,4 @@ elem.click()
 elem = browser.find_element_by_xpath(
     '/html/body/div[5]/div/div[1]/div[2]/div/a')
 elem.click()
+# 成功的完成了对于阿迪购物车里的东西进行结算

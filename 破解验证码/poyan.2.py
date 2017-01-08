@@ -1,8 +1,6 @@
+import requests
 from PIL import Image
 import pytesseract
-# image = Image.open('./破解验证码/2.jpg')
-image = Image.open('./破解验证码/asd.gif')
-image = image.convert('L')
 
 
 def binarizing(img, threshold):
@@ -38,9 +36,23 @@ def depoint(img):
     return img
 
 
-image = binarizing(image, 140)
-image = depoint(image)
-print(image.getbbox())
-print(pytesseract.image_to_string(image))
-print('chen')
-image.show()
+# image = binarizing(image, 140)
+# image = depoint(image)
+# print(image.getbbox())
+# print(pytesseract.image_to_string(image))
+# print('chen')
+# image.show()
+
+
+response = requests.get('http://acm.pdsu.edu.cn/vcode.php?0.12122042425090229')
+with open('tmp.gif', 'wb') as tmp:
+    for i in response:
+        tmp.write(i)
+    tmp.close()
+with Image.open('tmp.gif') as image:
+    image.show()
+    image = image.convert('L')
+    image = binarizing(image, 140)
+    image = depoint(image)
+    print(pytesseract.image_to_string(image))
+    image.show()
