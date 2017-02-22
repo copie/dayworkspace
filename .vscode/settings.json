@@ -1,6 +1,5 @@
 {
     "python.linting.pylintEnabled": false,
-    "python.formatting.provider": "yapf",
     "editor.fontSize": 16,
     "editor.cursorStyle": "block",
     "editor.wrappingColumn": 100,
