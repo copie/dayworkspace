@@ -51,6 +51,7 @@ class sobaidu():
             now_num = 0
             browser.implicitly_wait(30)
             browser.get('https://www.baidu.com/s?wd=site:(baijiahao.baidu.com) '+ key )
+            
             while True:
                 if now_num == 1:
                     try:
