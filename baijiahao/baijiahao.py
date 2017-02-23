@@ -50,8 +50,7 @@ class sobaidu():
             num += 1
             now_num = 0
             browser.implicitly_wait(30)
-            browser.get('https://www.baidu.com/s?wd=site:(baijiahao.baidu.com) '+ key )
-            
+            browser.get('https://www.baidu.com/s?wd=site:(baijiahao.baidu.com)' + key) 
             while True:
                 if now_num == 1:
                     try:
@@ -64,7 +63,7 @@ class sobaidu():
                 now_num += 1
                 print(now_num)
                 source = browser.page_source
-                soup=bs4.BeautifulSoup(source,'lxml')
+                soup=bs4.BeautifulSoup(source, 'lxml')
                 print('next_page')
                 for i in soup.findAll(class_='result c-container '):
                     url=i.find(class_='t').find('a').get('href')
@@ -79,8 +78,40 @@ class sobaidu():
                     except:
                         print('not find next_button may be for the page end!!!')
                         break
+class getappid:
+    def __init__(self):
+        self.URLFILENAME = "urllist.txt"
+        self.APPIDLIST = "appid.txt"
+        self.URLLIST = set()
+        self.APPIDFILE = open(self.APPIDLIST, 'w')
+    def _readurl(self):
+        '''读取新闻页的url'''
+        with open(self.URLFILENAME) as urllistfile:
+            for i in urllistfile.readlines():
+                self.URLLIST.add(i)
+    def _writeappid(self,appid):
+        self.APPIDFILE.write(appid)
+        self.APPIDFILE.write('\n')
+        print("写入成功")
+    def getid(self):
+        # browser = webdriver.PhantomJS()
+        browser = webdriver.Chrome()
+        browser.implicitly_wait(10)
+        # browser.set_script_timeout(10)
+        # browser.set_page_load_timeout(10)
+        for url in self.URLLIST:
+            browser.get(url)
+            regx = r'http[s]*://baijiahao.baidu.com/u[\S]*id=[0-9]*'
+            pattern = re.compile(regx)
+            match = re.findall(pattern, browser.page_source)
+            time.sleep(1)
+            try:
+                print(match[0])
+                self._writeappid(match[0])
+            except Exception as e:
+                print('匹配失败')
 def main():
-    dsfsd = sobaidu()    
+    dsfsd = sobaidu()
     # strings = dsfsd._changeurl('https://www.baidu.com/link?url=w8wWEQMyVf0cD3TsKcn_pTQZ92cIqLqxVZKWFtT4rYJcESE_qfhKlPJg5B7OM2mXhZoSM1H0ogmCIgi4G2EkP_&wd=&eqid=aa2c3db90000bf4c0000000458831761') 
     # print(strings)
     # # ###################### 奇怪的分割线 ###############
@@ -92,5 +123,13 @@ def main():
     # for i in dsfsd.URLLIST:
     #     print(i)
     dsfsd.URLFILE.close()
+def getid():
+    dsfsd = getappid()
+    dsfsd._readurl()
+    print(len(dsfsd.URLLIST))
+    dsfsd.getid()
+    dsfsd.APPIDFILE.close()
+
 if __name__ == '__main__':
-    main()
+    # main()
+    getid()
