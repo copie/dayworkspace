@@ -16,12 +16,13 @@ class sobaidu():
         self.KEYLIST = set()
         self.URLLIST = set()
         self.URLFILE = open(self.URLFILENAME, 'w')
+
     def _readkey(self):
         '''读取百度搜索所需要的所有关键词'''
         with open(self.KEYFILENAME) as keyklistfile:
             for i in keyklistfile.readlines():
                 self.KEYLIST.add(i)
-    def _changeurl(self,url):
+    def _changeurl(self, url):
         '''百度搜索结果url转换为真实的url'''
         try:
             req = requests.get(url+'&wd=')
@@ -33,9 +34,11 @@ class sobaidu():
             return match[0]
         except Exception as e:
             print(e)
+
     def _writetomysql(self):
         '''将真实url写入数据库'''
         pass
+
     def _writetofile(self,url):
         self.URLFILE.write(url)
         self.URLFILE.write('\n')
@@ -48,7 +51,7 @@ class sobaidu():
         for key in self.KEYLIST:
             ''''doc'''
             num += 1
-            now_num = 0
+            now_num = 0            
             browser.implicitly_wait(30)
             browser.get('https://www.baidu.com/s?wd=site:(baijiahao.baidu.com)' + key) 
             while True:
@@ -63,10 +66,10 @@ class sobaidu():
                 now_num += 1
                 print(now_num)
                 source = browser.page_source
-                soup=bs4.BeautifulSoup(source, 'lxml')
+                soup = bs4.BeautifulSoup(source, 'lxml')
                 print('next_page')
                 for i in soup.findAll(class_='result c-container '):
-                    url=i.find(class_='t').find('a').get('href')
+                    url = i.find(class_='t').find('a').get('href')
                     # print(url)
                     # self.URLLIST.add(self._changeurl(url))
                     self._writetofile(self._changeurl(url))
@@ -78,18 +81,20 @@ class sobaidu():
                     except:
                         print('not find next_button may be for the page end!!!')
                         break
+
 class getappid:
     def __init__(self):
         self.URLFILENAME = "urllist.txt"
         self.APPIDLIST = "appid.txt"
         self.URLLIST = set()
         self.APPIDFILE = open(self.APPIDLIST, 'w')
+
     def _readurl(self):
         '''读取新闻页的url'''
         with open(self.URLFILENAME) as urllistfile:
             for i in urllistfile.readlines():
                 self.URLLIST.add(i)
-    def _writeappid(self,appid):
+    def _writeappid(self, appid):
         self.APPIDFILE.write(appid)
         self.APPIDFILE.write('\n')
         print("写入成功")
@@ -122,6 +127,7 @@ def main():
     # print(len(dsfsd.URLLIST))
     # for i in dsfsd.URLLIST:
     #     print(i)
+    # ####################### 电脑有点卡的分割线 ###########
     dsfsd.URLFILE.close()
 def getid():
     dsfsd = getappid()
@@ -132,4 +138,4 @@ def getid():
 
 if __name__ == '__main__':
     # main()
-    getid()
+    # getid()
