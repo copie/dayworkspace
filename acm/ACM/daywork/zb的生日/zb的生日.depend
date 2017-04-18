@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1491907092 source:/home/copie/acm/ACM/daywork/zb的生日/main.cpp
+	<stdio.h>
+	<math.h>
+	<string.h>
+	<algorithm>
+

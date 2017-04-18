@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1492043685 source:/home/copie/acm/ACM/daywork/中缀式变后缀式/main.cpp
+	<iostream>
+	<stack>
+	<sstream>
+	<map>
+	<cstdio>
+	<string>
+	<queue>
+

@@ -1,0 +1,73 @@
+5 5
+e.b.S
+XXA.E
+GX.Xc
+C...X
+XXXBX
+5 5
+e.b.S
+XXA.E
+GX.Xc
+C....
+XXXBX
+5 5
+ecb.S
+XaX.E
+GX.Xc
+CA...
+XXXcX
+5 5
+Xae.S
+cXX.E
+XXXXc
+CAA..
+GXXcX
+5 5
+AEe.S
+cXX.E
+XXXXc
+CAA..
+GXXcX
+5 5
+Aae.S
+cXX.E
+XXXXc
+CAAE.
+GXXcX
+1 2
+SG
+1 3
+SXG
+5 5
+SXaXG
+.X.X.
+.X.X.
+.X.XA
+.....
+5 5
+aE..S
+bXX.c
+XX.CX
+GBA.B
+XXe.e
+5 5
+a...a
+XX.XX
+bXSXG
+.XAXB
+.....
+5 5
+.X.XG
+Sa..A
+.b.Xc
+XX..B
+bC...
+5 5
+.X.XG
+Sb..B
+.b.Xc
+XX..B
+bC...
+1 10
+S.aAbBcC.G
+0 0

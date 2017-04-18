@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1491810424 source:/home/copie/acm/ACM/daywork/一笔画问题/main.cpp
+	<iostream>
+	<vector>
+	<cstring>
+	<queue>
+	<cstdio>
+
