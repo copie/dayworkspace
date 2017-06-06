@@ -1,7 +1,0 @@
-# depslib dependency file v1.0
-1491897603 source:/home/copie/acm/ACM/daywork/tmp/main.cpp
-	<iostream>
-	<cstdio>
-	<cstring>
-	<fstream>
-

@@ -1,6 +1,0 @@
-# depslib dependency file v1.0
-1492396684 source:/home/copie/acm/ACM/daywork/表达式求值第四届/main.cpp
-	<iostream>
-	<stack>
-	<sstream>
-
