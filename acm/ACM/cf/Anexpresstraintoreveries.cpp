@@ -1,81 +1,119 @@
-/*#include<iostream>
-
-using namespace std;
-
-int main()
-{
-    int n;
-    int a;
-    int tmp;
-    int b;
-    cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        if(i==0)
-            cin >> a;
-        else
-            cin >> tmp;
-    }
-    for (int i = 0; i < n; i++)
-    {
-        if(i==0)
-            cin >> b;
-        else
-            cin >> tmp;
-    }
-    int x;
-    for (int i = 1; i <= n; i++)
-    {
-        if(i!=a && i!=b)
-        {
-            cout << i<<" ";
-            x = i;
-            break;
-        }
-    }
-    int f = 1;
-    for (int i = 1; i <= n; i++)
-    {
-       if(i==x)
-           continue;
-        else
-        {
-            f++;
-            if(f==n)
-                cout << i << endl;
-            else
-                cout << i <<" ";
-           
-        }
-    }
-}
-*/
 #include<iostream>
-using namespace std;
+#include<algorithm>
 
-int main()
+using namespace std;
+int que(int c[],int n)
 {
-    int n;
-    cin >> n;
-    int a[1010];
-    int b[1010];
-    for(int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        cin >> a[i];
+        
+        if (c[i] == 0)
+        {
+            // cout << i << endl;
+            return i;
+        }
+            
     }
-    for (int i = 0; i < n; i++)
-    {
-        cin >> b[i];
-    }
-    for (int i = 0; i < n; i++)
+    return -1;
+}
+int findque(int a[], int b[], int begin,int n)
+{
+    for (int i = begin; i < n; i++)
     {
         if(a[i]!=b[i])
+            return i;
+    }
+    return - 1;
+}
+int find2(int n, int c[])
+{
+    for (int i = 1; i <= n; i++)
+    {
+        if(c[i]==2)
         {
-            if(pan(b[i],a))
+            // cout << i << endl;
+            return i;
+        }
             
+    }
+    return -1;
+}
+int main()
+{
+    int n;
+    cin >> n;
+    int a[1010], b[1010],c[1010]={0},d[1010]={0};
+    for (int i = 0; i < 2 * n; i++)
+    {
+        if(i<n)
+        {
+            cin >> a[i];
+            c[a[i]]++;
+        }
+        else
+        {
+            cin >> b[i-n];
+            d[b[i - n]]++;
         }
     }
+    int aque = que(c, n);
+    // cout << aque << endl;
+    int bque = que(d, n);
+    if(aque == bque)
+    {
+        int tmp = findque(a, b, 0, n);
+        a[tmp] = aque;
+        cout << a[0];
         for (int i = 1; i < n; i++)
-            cout << " " << b[i];
-    cout << endl;
+            cout << " " << a[i];
+        cout << endl;
+        return 0;
+
+    }
+    else
+    {
+        int tmp = find2(n, c);
+    // cout << tmp << endl;
+        for (int i = 0; i < n; i++)
+        {
+            if(a[i]!=b[i]&&a[i]==tmp)
+            {
+                a[i] = aque;
+                break;
+            }
+        }
+        int sum1 = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if(a[i]!=b[i])
+                sum1++;
+        }
+        if(sum1==1)
+        {
+            cout << a[0];
+            for (int i = 1; i < n; i++)
+                cout << " " << a[i];
+            cout << endl;
+            return 0;
+        }
+        else
+        {
+            int tmp = find2(n, d);
+            for (int i = 0; i < n; i++)
+            {
+                if(a[i]!=b[i]&&b[i]==tmp)
+                {
+                    b[i] = bque;
+                    break;
+                }
+
+            }
+            cout << b[0];
+            for (int i = 1; i < n; i++)
+                cout << " " << b[i];
+            cout << endl;
+            return 0;
+        }
+    }
+    return 0;
 }
