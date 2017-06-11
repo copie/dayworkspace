@@ -14,6 +14,8 @@ then
             ./a.out
             rm ./a.out
             exit
+        else
+            exit
         fi
     fi
     
@@ -38,6 +40,8 @@ then
             trap "rm -f ./a.out; exit" 1 2 3 8 9 14 15
             ./a.out
             rm ./a.out
+            exit
+        else
             exit
         fi
     fi
