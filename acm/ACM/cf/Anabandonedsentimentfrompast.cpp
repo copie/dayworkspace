@@ -1,15 +1,17 @@
-#include<iostream>
-#include<algorithm>
+#include <iostream>
+#include <algorithm>
 
 using namespace std;
-bool cmp(int a,int b)
+bool cmp(int a, int b)
 {
+    string str;
     return a > b;
 }
-bool pan(int a[],int n){
+bool pan(int a[], int n)
+{
     for (int i = 1; i < n; i++)
     {
-        if(a[i]<a[i-1])
+        if (a[i] < a[i - 1])
             return false;
     }
     return true;
@@ -24,11 +26,11 @@ int main()
         cin >> a[i];
     for (int i = 0; i < k; i++)
         cin >> b[i];
-    sort(b, b + k,cmp);
+    sort(b, b + k, cmp);
     int x = 0;
     for (int i = 0; i < n; i++)
     {
-        if(a[i]==0)
+        if (a[i] == 0)
         {
             a[i] = b[x];
             x++;
@@ -37,7 +39,7 @@ int main()
     if (pan(a, n))
     {
         cout << "No" << endl;
-        }
-        else
-            cout << "Yes" << endl;
+    }
+    else
+        cout << "Yes" << endl;
 }

@@ -1,10 +1,10 @@
-#include<iostream>
+#include <iostream>
 
 using namespace std;
 
 int main()
 {
-    int n,m;
-    cin>>n>>m;
-    cout<<n*m/2<<endl;
+    int n, m;
+    cin >> n >> m;
+    cout << n * m / 2 << endl;
 }

@@ -26,5 +26,6 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "sstream": "cpp"
-    }
+    },
+    "python.linting.pylintEnabled": false
 }
