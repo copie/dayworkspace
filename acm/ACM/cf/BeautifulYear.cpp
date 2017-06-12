@@ -19,9 +19,9 @@ int main()
         {
             se.insert(c);
         }
-        if(se.size()==str.length())
+        if (se.size() == str.length())
         {
-            cout<<str<<endl;
+            cout << str << endl;
             return 0;
         }
         else
