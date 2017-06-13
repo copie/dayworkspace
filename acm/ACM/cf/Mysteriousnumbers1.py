@@ -1,3 +1,3 @@
-a,b = map(str,input().split())
+a, b = map(str, input().split())
 
-print(int(a)+int(b[::-1]))
+print(int(a) + int(b[::-1]))

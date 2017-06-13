@@ -1,8 +1,9 @@
-#include<iostream>
-#include<math.h>
+#include <iostream>
+#include <math.h>
 using namespace std;
 
-int main(){
+int main()
+{
     int a;
     int b;
     for (int i = 1; i <= 5; i++)
@@ -10,12 +11,12 @@ int main(){
         {
             int t;
             cin >> t;
-            if(t==1)
-                {
-                    a = i;
-                    b = j;
-                    cout << abs(3 - j) + abs(3 - i) << endl;
-                    return 0;
-                }
+            if (t == 1)
+            {
+                a = i;
+                b = j;
+                cout << abs(3 - j) + abs(3 - i) << endl;
+                return 0;
+            }
         }
 }

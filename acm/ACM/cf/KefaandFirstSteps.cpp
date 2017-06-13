@@ -10,11 +10,11 @@ int main()
     int n;
     cin >> n;
     int maxx = 1;
-    cin>>a[0];
-    int dp=1;
+    cin >> a[0];
+    int dp = 1;
     for (int i = 1; i < n; i++)
     {
-        
+
         {
             cin >> a[i];
             if (a[i] < a[i - 1])
@@ -23,7 +23,7 @@ int main()
             }
             else
             {
-                dp = dp+ 1;
+                dp = dp + 1;
                 maxx = max(maxx, dp);
             }
         }
@@ -47,7 +47,7 @@ int main()
 //     {
 //         if(i==0)
 //         {
-//             cin>>a[i];  
+//             cin>>a[i];
 //             dp[0]=1;
 //         }
 //         else
@@ -62,7 +62,7 @@ int main()
 //                 dp[i]=dp[i-1]+1;
 //                 maxx=max(maxx,dp[i]);
 //             }
-//         }   
+//         }
 //     }
 //     cout<<maxx<<endl;
 //     return 0;

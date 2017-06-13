@@ -1,5 +1,5 @@
-#include<iostream>
-#include<stack>
+#include <iostream>
+#include <stack>
 
 using namespace std;
 stack<int> st;
@@ -12,15 +12,15 @@ int main()
     cin >> str;
     for (int i = 0; i < t; i++)
     {
-        for (int j = 0; j < str.length()-1; j++)
+        for (int j = 0; j < str.length() - 1; j++)
         {
-            if(str[j]<str[j+1])
+            if (str[j] < str[j + 1])
             {
                 st.push(j);
                 st.push(j + 1);
             }
         }
-        while(!st.empty())
+        while (!st.empty())
         {
             char c;
             int a = st.top();
