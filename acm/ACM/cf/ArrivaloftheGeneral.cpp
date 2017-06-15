@@ -7,12 +7,14 @@ int main()
     std::ios::sync_with_stdio(false);
     int n;
     cin >> n;
+    cout<<n<<endl;
     int a[1000];
     int mmax = -0x3f3f3f3f;
     int mmin = 0x3f3f3f3f;
     for(int i = 0; i < n; i++)
     {
         cin >> a[i];
+        cout<<a[i]<<endl;
         mmax = max(mmax, a[i]);
         mmin = min(mmin, a[i]);
     }
@@ -34,7 +36,6 @@ int main()
             break;
         }
     }
-    // cout << x << " " << y << endl;
     if(y > x)
         cout << x + n - y - 1 << endl;
     else

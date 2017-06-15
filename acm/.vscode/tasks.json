@@ -1,0 +1,7 @@
+{
+    "version": "0.1.0",
+    "command": "yx",
+    "isShellCommand": true,
+    "args": ["${file}"],
+    "showOutput": "always"
+}
