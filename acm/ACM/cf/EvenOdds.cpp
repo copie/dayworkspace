@@ -11,8 +11,7 @@ int main()
         cout <<std::fixed<<(long long int)(2 * n - 1)<< endl;
     else
     {
-        cout<<std::fixed<<(long long int)(n-ceil(k/2))*2<<endl; 
+        cout<<std::fixed<<(long long int)(n-ceil(k/2))*2<<endl;
     }
-       
     return 0;
 }
