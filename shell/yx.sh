@@ -29,6 +29,7 @@ then
 fi
 if [ $# -eq 0 ]
 then
+    rm -f a.out
     myfile=`ls -lt | head -n 2 | awk '{print $9}'`
     if [ "${myfile##*.}" == "cpp" ] || [ "${myfile##*.}" == "c" ] || [ "${myfile##*.}" == "cc" ]
     then
