@@ -1,59 +1,59 @@
-//
-//                       _oo0oo_
-//                      o8888888o
-//                      88" . "88
-//                      (| -_- |)
-//                      0\  =  /0
-//                    ___/`---'\___
-//                  .' \|     |// '.
-//                 / \|||  :  |||// \
-//                / _||||| -:- |||||- \
-//               |   | \  -  /// |     |
-//               | \_|  ''\---/''  |_/ |
-//               \  .-\__  '-'  ___/-. /
-//             ___'. .'  /--.--\  `. .'___
-//          ."" '<  `.___\_<|>_/___.' >' "".
-//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-//         \  \ `_.   \_ __\ /__ _/   .-` /  /
-//     =====`-.____`.___ \_____/___.-`___.-'=====
-//                       `=---='
-//
-//
-//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//
-//               佛祖保佑         永无BUG
-//
-//
-//
 #include <bits/stdc++.h>
 
+#define MAX 2000010
 using namespace std;
-int a[1000000000];
+
+int h, w, n;
+int segTree[MAX * 4 + 10];
+
+void buildtree(int node, int begin, int end)
+{
+    if (begin == end)
+    {
+        segTree[node] = w;
+        return;
+    }
+
+    buildtree(node * 2, begin, (end + begin) / 2);
+    buildtree(node * 2 + 1, (end + begin) / 2 + 1, end);
+    segTree[node] = max(segTree[node * 2], segTree[node * 2 + 1]);
+}
+void addplan(int node, int begin, int end, int add)
+{
+
+    if (begin == end)
+    {
+
+        segTree[node] = segTree[node] - add;
+        //cout<<end<<endl;
+        printf("%d\n", end);
+        return;
+    }
+    if (add <= segTree[node * 2])
+    {
+        addplan(node * 2, begin, (end + begin) / 2, add);
+    }
+    else
+    {
+        addplan(node * 2 + 1, (end + begin) / 2 + 1, end, add);
+    }
+    segTree[node] = max(segTree[node * 2], segTree[node * 2 + 1]);
+}
 int main()
 {
-    int h, w, n;
-    while (cin >> h >> w >> n)
+
+    while (scanf("%d%d%d", &h, &w, &n) != EOF)
     {
-        memset(a, 0, sizeof(a));
-        while (n--)
+        buildtree(1, 1, (h > n ? n : h));
+        for (int i = 0; i < n; i++)
         {
-            int k;
-            cin >> k;
-            int flag = 0;
-            for (int i = 1; i <= h; i++)
-            {
-                if (a[i] + k <= w)
-                {
-                    a[i] += k;
-                    cout << i << endl;
-                    flag = 1;
-                    break;
-                }
-            }
-            if (flag == 0)
-            {
+            int tmp;
+            // cin >> tmp;
+            scanf("%d", &tmp);
+            if (tmp <= segTree[1])
+                addplan(1, 1, (h > n ? n : h), tmp);
+            else
                 cout << -1 << endl;
-            }
         }
     }
     return 0;

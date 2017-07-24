@@ -3,6 +3,9 @@
     "files.associations": {
         "chrono": "cpp",
         "limits": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "ostream": "cpp",
+        "iostream": "cpp",
+        "tuple": "cpp"
     }
 }
