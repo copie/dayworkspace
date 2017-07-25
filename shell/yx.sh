@@ -6,7 +6,6 @@ then
     if [ "${myfile##*.}" == "cpp" ] || [ "${myfile##*.}" == "c" ] || [ "${myfile##*.}" == "cc" ]
     then
         # 编译C++
-        
         g++ -g -std=gnu++14 -static $1
         if [ $? -eq 0 ]
         then
