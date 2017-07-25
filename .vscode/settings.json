@@ -6,6 +6,7 @@
         "valarray": "cpp",
         "ostream": "cpp",
         "iostream": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "sstream": "cpp"
     }
 }
