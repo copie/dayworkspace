@@ -15,17 +15,17 @@ int main()
         }
         else
         {
-            if((k-n)/(n-1)==0)
+            if((k-n)/(n-1)%2==0)
             {
                 if((k-n)%(n-1)==0)
-                cout<<n-1<<endl;
+                cout<<n<<endl;
                 else
                 cout<<(k-n)%(n-1)<<endl;
             }
             else
             {
                  if((k-n)%(n-1)==0)
-                 cout<<n<<endl;
+                 cout<<n-1<<endl;
                  else
                  cout<<(k-n)%(n-1)<<endl;
             }

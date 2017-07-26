@@ -105,7 +105,7 @@ int main(void)
             ans = ans + (arr[i].val * (LL)(i)) % mod;
             ans %= mod;
         }
-        printf("Case #%d: %I64d\n", q++, ans);
+        printf("Case #%d: %lld\n", q++, ans);
     }
     return 0;
 }
