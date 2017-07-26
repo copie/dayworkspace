@@ -7,6 +7,8 @@
         "ostream": "cpp",
         "iostream": "cpp",
         "tuple": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "typeindex": "cpp",
+        "typeinfo": "cpp"
     }
 }
