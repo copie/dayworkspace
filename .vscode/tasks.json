@@ -1,12 +1,26 @@
+// {
+//     // See https://go.microsoft.com/fwlink/?LinkId=733558
+//     // for the documentation about the tasks.json format
+//     "version": "0.1.0",
+//     "command": "yx",
+              
+//     "isShellCommand": true,
+//     "args": ["${file}"],          
+//    "showOutput": "always",
+//     "runner": "terminal"
+    
+// }
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "0.1.0",
-    "command": "yx",
-              
+    "command": "g++",
     "isShellCommand": true,
-    "args": ["${file}"],          
-   "showOutput": "always",
-    "runner": "terminal"
-    
+    "args": [
+        "-g",
+        "${file}",
+        "-o",
+        "${fileBasenameNoExtension}.o"
+    ],
+    "showOutput": "always"
 }

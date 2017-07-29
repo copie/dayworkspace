@@ -9,6 +9,7 @@
         "tuple": "cpp",
         "sstream": "cpp",
         "typeindex": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "ratio": "cpp"
     }
 }
