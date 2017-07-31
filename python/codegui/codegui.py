@@ -54,7 +54,7 @@ class MainFrame(tkinter.Frame):
         self.lfc_field_1_l.pack(fill="y", expand=0, side=tkinter.LEFT)
 
         self.lfc_field_1_filedown = tkinter.Button(
-            lfc_field_1, text="下载图片", width=10, command=self.downfile)
+            lfc_field_1, text="下载文件", width=10, command=self.downfile)
         self.lfc_field_1_filedown.pack(fill="y", expand=1, side=tkinter.LEFT)
 
         self.lfc_field_1_b = tkinter.Button(
@@ -62,7 +62,7 @@ class MainFrame(tkinter.Frame):
         self.lfc_field_1_b.pack(fill="y", expand=0, side=tkinter.RIGHT)
 
         self.lfc_field_1_fileup = tkinter.Button(
-            lfc_field_1, text="上传图片", width=10, height=1, command=self.upfile)
+            lfc_field_1, text="上传文件", width=10, height=1, command=self.upfile)
         self.lfc_field_1_fileup.pack(fill="y", expand=0, side=tkinter.RIGHT)
 
         # 文本框与滚动条
@@ -106,7 +106,6 @@ class MainFrame(tkinter.Frame):
         str1 = self.lfc_field_1_t.get('0.0', 'end')
         str1 = str1.encode(encoding="utf-8")
         str1 = base64.urlsafe_b64encode(str1)
-        print(str(str1))
         str1 = "http://copie.cn:5000/postcode?code=" + str(str1)
         # print(str1)
         req = requests.get(str1)
@@ -127,15 +126,28 @@ class MainFrame(tkinter.Frame):
         self.lfc_field_1_t.insert('0.0', str1.decode())
 
     def upfile(self):
+        url = 'http://0.0.0.0:5000/upfile'
         filename = filedialog.askopenfilename()
-        name = filename.split("/")[-1]
-        print(name)
-        with open(filename,'rb') as file:
-            
-        pass
-
+        print(filename)
+        try:
+            files = {'file': open(str(filename), 'rb')}
+            r = requests.post(url, files=files)
+            print(r.text)
+        except:
+            pass
+        print("上传文件")
     def downfile(self):
-        pass
+        try:
+            filename = filedialog.asksaveasfilename()
+            filename = filename + '.'+requests.get("http://127.0.0.1:5000/downfiletype").text
+            print(filename)
+            req = requests.get("http://127.0.0.1:5000/downfile")
+            with open(filename,'wb') as savefile:
+                savefile.write(req.content)
+            
+        except:
+            pass
+
 
 
 def main():
