@@ -8,29 +8,35 @@ struct node
 };
 
 vector<node> vag[600010];
-int begin;
+int mybegin;
 long long ans;
 
 vector<int> onev1;
 vector<int> onev2;
 vector<int> onew;
 
-long long dfs(long long sum, int dian, int shang)
+long long dfs(long long sumj, int dian, int shang, bool jo, long long sumo)
 {
-    if (dian == begin)
+
+    jo = !jo;
+    if (dian == mybegin)
     {
         for (auto x : onew)
         {
-            sum *= x;
+            sumj *= x;
+            sumo *= x;
         }
-        ans += sum;
+        ans += sumj + sumo;
         return 0;
     }
     for (auto x : vag[dian])
     {
-        if (onev1.count(x.n) == 0 && onev2.count(x.n) == 0 && x.n != shang)
+        if (count(onev1.begin(), onev1.end(), x.n) == 0 && count(onev2.begin(), onev2.end(), x.n) == 0 && x.n != shang)
         {
-            dfs(sum * x.w, x.n, dian);
+            if (jo)
+                dfs(sumj * x.w, x.n, dian, jo, sumo);
+            else
+                dfs(sumj, x.n, dian, jo, sumo * x.w);
         }
     }
 }
@@ -54,12 +60,12 @@ int main()
             tmp.w = w1;
             vag[i].push_back(tmp);
             tmp.n = i;
-            vag[v1 + n].push_back(tmp);
+            vag[v1].push_back(tmp);
             tmp.n = v2;
             tmp.w = w2;
             vag[i].push_back(tmp);
             tmp.n = i;
-            vag[v2 + n].push_back(tmp);
+            vag[v2].push_back(tmp);
         }
         int flag = 0;
         for (int i = 2 * n; i > n; i--)
@@ -75,15 +81,20 @@ int main()
             {
                 if (!flag)
                 {
-                    begin = i;
+                    mybegin = i;
                 }
             }
         }
-        for (auto x : vag[begin])
+        for (auto x : vag[mybegin])
         {
-            if (onev1.count(x.n) == 0 && onev2.count(x.n) == 0)
-                dfs(x.w, x.n, begin);
+
+            if (count(onev1.begin(), onev1.end(), x.n) == 0 && count(onev2.begin(), onev2.end(), x.n) == 0)
+            {
+                dfs(x.w, x.n, mybegin, 1, 1);
+                break;
+            }
         }
+        cout << ans << endl;
     }
     return 0;
 }

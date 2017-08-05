@@ -10,6 +10,7 @@
         "sstream": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp",
-        "ratio": "cpp"
+        "ratio": "cpp",
+        "bitset": "cpp"
     }
 }
