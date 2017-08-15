@@ -13,8 +13,7 @@ myfilename = ""
 if os.path.isdir(filepath) == False:
     os.mkdir(filepath)
 
-UPLOAD_FOLDER = '/home/copie/'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+UPLOAD_FOLDER = "/home/" + getpass.getuser()
 
 # 限制上传格式 我们这里不需要
 
@@ -59,9 +58,9 @@ def downfile():
     request.method == 'GET'
     # print(myfilename)
     
-    if os.path.isfile("/home/copie/codeguiup/"+myfilename):
+    if os.path.isfile("/home/" + getpass.getuser()+"/codeguiup/"+myfilename):
         print(myfilename)
-        return send_from_directory('/home/copie/codeguiup/', myfilename, as_attachment=True)
+        return send_from_directory("/home/" + getpass.getuser()+'/codeguiup/', myfilename, as_attachment=True)
     else:
         return '404'
 @app.route('/downfiletype',methods=['GET'])

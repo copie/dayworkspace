@@ -1,37 +1,13 @@
-# import tkinter as tk
-
-# class Application(tk.Frame):
-#     def __init__(self, master=None):
-#         super().__init__(master)
-#         self.pack()
-#         self.create_widgets()
-
-#     def create_widgets(self):
-
-#         self.hi_there = tk.Button(self)
-#         self.hi_there["text"] = "提交"
-#         self.hi_there["command"] = self.uploder
-#         self.hi_there.pack(side="bottom")
-#     def uploder(self):
-#         print("提交成功!")
-# root = tk.Tk()
-# app = Application(master=root)
-# app.mainloop()
-#-*- coding:utf-8 -*-
-
-"""
-Text    文本框样例
-实现功能有：Ctrl+a全选文本， 竖向滚动条，横向滚动条（不自动换行） 自动缩放
-
-有谁知道全选文本的方法为会要 return 'break' 吗？
-"""
-
-
-import tkinter
-import requests
 import base64
+import tkinter
 from tkinter import filedialog
-import re
+
+import requests
+
+from tkinter import messagebox
+
+HOST = '115.159.219.118'
+PORT = '5000'
 
 
 class MainFrame(tkinter.Frame):
@@ -93,60 +69,86 @@ class MainFrame(tkinter.Frame):
         label_frame_bottom = tkinter.LabelFrame(self)
         # label_frame_bottom.pack()
 
-        pass
-
     # 文本全选
     def selectText(self, event):
         self.lfc_field_1_t.tag_add(tkinter.SEL, "1.0", tkinter.END)
-        #self.lfc_field_1_t.mark_set(tkinter.INSERT, "1.0")
-        # self.lfc_field_1_t.see(tkinter.INSERT)
         return 'break'  # 为什么要return 'break'
 
+    # 上传代码 用base64进行加密
     def uploder(self):
-        str1 = self.lfc_field_1_t.get('0.0', 'end')
-        str1 = str1.encode(encoding="utf-8")
-        str1 = base64.urlsafe_b64encode(str1)
-        str1 = "http://copie.cn:5000/postcode?code=" + str(str1)
-        # print(str1)
-        req = requests.get(str1)
-        print("上传了")
-        # print(str1)
-        # print(req)
+        code = self.lfc_field_1_t.get('0.0', 'end')
+        code = code.encode(encoding="utf-8")
+        code = base64.urlsafe_b64encode(code)
+        url = "http://" + HOST + ":" + PORT + "/postcode?code=" + str(code)
+        
+        try:
+            req = requests.get(url)
+            if req.text == "200":
+                messagebox.showinfo("成功", "上传成功")
+                # 清空文本框
+                self.lfc_field_1_t.delete('0.0', 'end')
+            else:
+                messagebox.showinfo("失败", "管理员服务器炸了")
+        except:
+            messagebox.showinfo("失败", "管理员服务器炸了")
 
+    # 下载代码 用base64进行解密
     def downloder(self):
-        req = requests.get("http://copie.cn:5000/")
-
-        print("下载成功")
-        print(req.text)
-        str1 = req.text[2:-1].encode(encoding="utf-8")
-        print(str1)
-        str1 = base64.urlsafe_b64decode(str1)
-        print(str1.decode())
+        try:
+            url = "http://" + HOST + ":" + PORT
+            req = requests.get(url)
+        except:
+            return
+        code = req.text[2:-1].encode(encoding="utf-8")
+        code = base64.urlsafe_b64decode(code)
         self.lfc_field_1_t.delete('0.0', 'end')
-        self.lfc_field_1_t.insert('0.0', str1.decode())
+        self.lfc_field_1_t.insert('0.0', code.decode())
+    # 上传文件
 
     def upfile(self):
-        url = 'http://0.0.0.0:5000/upfile'
+
+        url = "http://" + HOST + ":" + PORT + "/upfile"
+        # 让用户选择文件
         filename = filedialog.askopenfilename()
-        print(filename)
+        self.lfc_field_1_t.delete('0.0', 'end')
+        self.lfc_field_1_t.insert('0.0', "开始上传文件......")
         try:
             files = {'file': open(str(filename), 'rb')}
-            r = requests.post(url, files=files)
-            print(r.text)
+            req = requests.post(url, files=files)
+            if req.status_code == 200:
+                messagebox.showinfo("成功", "上传成功")
+            else:
+                messagebox.showinfo("失败", "管理员服务器炸了")
         except:
-            pass
-        print("上传文件")
+            messagebox.showinfo("失败", "管理员服务器炸了")
+        finally:
+            self.lfc_field_1_t.delete('0.0', 'end')
+
+    # 下载文件
     def downfile(self):
         try:
+            # 让用户选择保存的路径和文件名_会自动添加文件的扩展名
             filename = filedialog.asksaveasfilename()
-            filename = filename + '.'+requests.get("http://127.0.0.1:5000/downfiletype").text
-            print(filename)
-            req = requests.get("http://127.0.0.1:5000/downfile")
-            with open(filename,'wb') as savefile:
-                savefile.write(req.content)
-            
+            self.lfc_field_1_t.delete('0.0', 'end')
+            self.lfc_field_1_t.insert('0.0', "开始下载文件......\n")
+
+            filename = filename + '.' + \
+                requests.get("http://" + HOST + ":" +
+                             PORT + "/downfiletype").text
+
+            self.lfc_field_1_t.insert('0.0', "获取文件扩展名成功......")
+
+            req = requests.get("http://" + HOST + ":" + PORT + "/downfile")
+            if req.status_code == 200:
+                with open(filename, 'wb') as savefile:
+                    savefile.write(req.content)
+                messagebox.showinfo("成功", "下载成功")
+            else:
+                messagebox.showinfo("失败", "管理员服务器炸了")
         except:
-            pass
+            messagebox.showinfo("失败", "管理员服务器炸了")
+        finally:
+            self.lfc_field_1_t.delete('0.0', 'end')
 
 
 
@@ -162,4 +164,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    pass
