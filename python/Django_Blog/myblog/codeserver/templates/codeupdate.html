@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>代码上传</title>
+    <style>
+        body{ text-align:center}
+        textarea{ width:800px; height:600px; resize:none;}   
+    </style>
+    <!-- 引入 webtoolkit.base64.js 进行解码-->
+    <script src='/static/webtoolkit.base64.js'></script>
+</head>
+<body>
+    <p>可以在这个地方上传你的代码并填写代号</p>
+    <form action="/codeupdate" id="myForm" method="post">
+        <textarea  id= "codetext" placeholder="这里填写你的代码"></textarea>
+        <br>
+        <label for="name">姓名或昵称:</label>
+        <input type="text" id="name"></input>
+        <br>
+        <br>
+        <input type="button" id = "submitButton" value="上传">
+    </form>
+    <script>
+        //此JS代码必须放到body结束之前才有效
+        function $(id){return document.getElementById(id);}
+        $("submitButton").onclick = function(){
+            alert("我被激活啦！");
+            name = Base64.encode($("name").value);
+            code = Base64.encode($("codetext").value);
+            alert("提交人:"+name);
+            alert("代码:"+code);
+            $("name").value=name;
+            $("codetext").value=code;
+            $("myForm").submit();
+        }
+     </script>
+</body>
+</html>
