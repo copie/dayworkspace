@@ -11,25 +11,22 @@
 </head>
 <body>
     <p>可以在这个地方上传你的代码并填写代号</p>
-    <form action="/codeupdate" id="myForm" method="post">
-        <textarea  id= "codetext" placeholder="这里填写你的代码"></textarea>
-        <br>
+    <form action="/codeupdate" id="myForm" method="get">
+        <textarea  id= "codetext" placeholder="这里填写你的代码" name = "codetext" ></textarea>
+        <br/>
         <label for="name">姓名或昵称:</label>
-        <input type="text" id="name"></input>
-        <br>
-        <br>
+        <input type="text" id="name" name='name' ></input>
+        <br/>
+        <br/>
         <input type="button" id = "submitButton" value="上传">
     </form>
     <script>
         //此JS代码必须放到body结束之前才有效
         function $(id){return document.getElementById(id);}
         $("submitButton").onclick = function(){
-            alert("我被激活啦！");
-            name = Base64.encode($("name").value);
+            alert("我被激活啦！"); 
             code = Base64.encode($("codetext").value);
-            alert("提交人:"+name);
             alert("代码:"+code);
-            $("name").value=name;
             $("codetext").value=code;
             $("myForm").submit();
         }

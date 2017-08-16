@@ -21,7 +21,7 @@ if __name__ == '__main__':
     main()
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^code/(\S{6})$',codeserver_views.codeserverIndex,name="codeserverIndex"),
+    url(r'^code/(\S{8})$',codeserver_views.codeserverIndex,name="codeserverIndex"),
     url(r'^codeup/',codeserver_views.codeup),
     url(r'^codeupdate/',codeserver_views.codeupdate)
 ]

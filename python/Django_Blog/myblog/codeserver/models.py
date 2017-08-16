@@ -5,6 +5,6 @@ from django.db import models
 
 class codeserver(models.Model):
     code=models.CharField(max_length=5000,null=False)
-    date=models.DateTimeField()
+    date=models.DateTimeField(auto_now=True)
     key=models.CharField(max_length=20,primary_key=True,db_index =True)
     usr=models.CharField(max_length=20)
