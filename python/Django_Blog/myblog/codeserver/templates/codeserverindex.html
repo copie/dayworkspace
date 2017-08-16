@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>代码粘贴板</title>
+    <style>
+            body{ text-align:center}
+            textarea{ width:800px; height:600px; resize:none;}   
+    </style>
+    <script>
+            
+
+    </script>
+</head>
+<body>
+    <p>以下代码来自:{{usr}}</p> 
+    <textarea  id= "codetext">{{code}}</textarea>
+    <script>
+            var basecode = document.getElementById('codetext')
+            base64encode = window.atob(basecode.value)
+            basecode.value=base64encode
+    </script>   
+    
+        
+</body>
+</html>
