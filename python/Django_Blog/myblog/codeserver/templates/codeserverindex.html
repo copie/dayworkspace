@@ -7,20 +7,16 @@
             body{ text-align:center}
             textarea{ width:800px; height:600px; resize:none;}   
     </style>
-    <script>
-            
-
-    </script>
+    <!-- 引入 webtoolkit.base64.js 进行解码-->
+    <script src='/static/webtoolkit.base64.js'></script>
 </head>
 <body>
     <p>以下代码来自:{{usr}}</p> 
-    <textarea  id= "codetext">{{code}}</textarea>
+    <textarea  id= "codetext" readonly>{{code}}</textarea>
     <script>
             var basecode = document.getElementById('codetext')
-            base64encode = window.atob(basecode.value)
+            base64encode = Base64.decode(basecode.value)
             basecode.value=base64encode
-    </script>   
-    
-        
+    </script>     
 </body>
 </html>
