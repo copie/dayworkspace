@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from codeserver import views as codeserver_views
+from runcode import views as runcode_views
 
 if __name__ == '__main__':
     main()
@@ -23,5 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^code/(\S{8})$',codeserver_views.codeserverIndex,name="codeserverIndex"),
     url(r'^codeup/',codeserver_views.codeup),
-    url(r'^codeupdate/',codeserver_views.codeupdate)
+    url(r'^codeupdate/',codeserver_views.codeupdate),
+    url(r'^runcode/',runcode_views.runcode),
+    url(r'^$',runcode_views.index)
 ]

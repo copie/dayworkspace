@@ -8,6 +8,7 @@ import time
 
 def codeserverIndex(request,key):
     
+    print(key)
     codedata = codeserver.objects.get(key=key)
     print(codedata)
     print(codedata.code)
