@@ -8,12 +8,11 @@ from django.shortcuts import render
 
 # Create your views here.
 
-
 def runcode(request):
-    # print(request.method)
+
     if request.method == 'GET' and 'codetext' in request.GET and 'lang' in request.GET:
         if request.GET['codetext'] != '' and request.GET['lang'] != '':
-            if request.GET['lang'] == 'python' or request.GET['lang'] == 'python3':
+            if request.GET['lang'] == 'Python' or request.GET['lang'] == 'Python3':
                 codetext = base64.decodebytes(
                     bytes(request.GET['codetext'], encoding='utf-8')).decode('utf-8')
                 r = dict()
@@ -29,7 +28,7 @@ def runcode(request):
                     r = dict(error='Error', output='执行错误')
                 return JsonResponse(r)
             else:
-                return JsonResponse({'code': '404', 'error': "提交暂不支持语言"})
+                return JsonResponse({'error': "提交暂不支持语言"})
         else:
             return JsonResponse({'code': '404'})
     else:
@@ -45,6 +44,5 @@ def _write2file_(code, code_type='py'):
 
 
 def index(request):
-    # return HttpResponse("你可以在这提交你的code")
     return render(request, 'runcode.html')
     pass

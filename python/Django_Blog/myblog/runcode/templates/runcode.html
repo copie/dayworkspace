@@ -1,35 +1,50 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>代码运行器</title>
     <style>
-        body{ text-align:center}
-        textarea{ width:800px; height:600px; resize:none;}   
+        body {
+            text-align: center
+        }
+
+        textarea {
+            width: 800px;
+            height: 600px;
+            resize: none;
+        }
     </style>
     <!-- 引入 webtoolkit.base64.js 进行解码-->
     <script src='/static/webtoolkit.base64.js'></script>
 </head>
+
 <body>
     <p>可以在这个地方上传你的代码并填写代码语言</p>
     <form action="/runcode" id="myForm" method="get">
-        <textarea  id= "codetext" placeholder="这里填写你的代码" name = "codetext" ></textarea>
+        <textarea id="codetext" placeholder="这里填写你的代码" name="codetext"></textarea>
         <br/>
         <label for="lang">语言:</label>
-        <input type="text" id="lang" name='lang' ></input>
+        <select name="lang">
+            <option value="Python3">Python3</option>
+            <option value="Cplusplus">C++</option>
+            <option value="C">C</option>
+            <option value="Java">Java</option>            
+        </select>
         <br/>
         <br/>
-        <input type="button" id = "submitButton" value="上传">
+        <input type="button" id="submitButton" value="上传">
     </form>
     <script>
         //此JS代码必须放到body结束之前才有效
-        function $(id){return document.getElementById(id);}
-        $("submitButton").onclick = function(){
-            alert("我被激活啦！"); 
+        function $(id) { return document.getElementById(id); }
+        $("submitButton").onclick = function () {
+            alert("我被激活啦！");
             code = Base64.encode($("codetext").value);
-            alert("代码:"+code);
-            $("codetext").value=code;
+            alert("代码:" + code);
+            $("codetext").value = code;
             $("myForm").submit();
         }
-     </script>
+    </script>
 </body>
+
 </html>
