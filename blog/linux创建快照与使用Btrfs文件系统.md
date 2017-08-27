@@ -79,7 +79,7 @@
 
 如果你的系统被你弄死了，你就要恢复了。。。。
 
-通过启动盘 挂载btrfs文件系统到/mnt：
+不需要启动盘 挂载btrfs文件系统到/mnt：
 
     sudo mount /dev/sda1 /mnt
 
