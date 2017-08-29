@@ -190,4 +190,4 @@ stdin、stdout和stderr分别指定执行程序的标准输入，标准输出和
 
 这些选项以及所有其他选项在Popen构造函数文档中有更详细的描述。
 
-下一篇博客关于Popen
+更多详细内容 [官方文档](http://usyiyi.cn/translate/python_352/library/subprocess.html#module-subprocess)
