@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+				p {font-size: 400% ;text-align:center;color: #ff0000;font-family:Georgia, Times}
+				body { background-color: #000000;}
+		</style>
+		<title> html_learn_p59 书写的练习代码</title>
+		<mate charset = "utf-8">
+	</head>
+	<body>
+		<p style="color:#0000ff"  id = "time"></p>
+		<p id = "timetest"></p>		
+		<script>
+            function timeout()
+			{
+				var mytime = document.getElementById("time");
+				var myDate = new Date();
+				mytime.innerText = (String(String(myDate.getHours()).length==1 ? "0"+myDate.getHours():myDate.getHours()) 
+				+":"+ 
+				String(String(myDate.getMinutes()).length==1? "0"+myDate.getMinutes():myDate.getMinutes()))
+				+":"+
+				String(String(myDate.getSeconds()).length==1? "0"+myDate.getSeconds():myDate.getSeconds());			
+				t = setTimeout("timeout()", 1000)
+			}
+			timeout()
+		</script>
+	</body>
+
+</html>
