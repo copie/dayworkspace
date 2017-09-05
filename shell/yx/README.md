@@ -5,9 +5,9 @@
 ## 使用
 
 1. 
-    sudo cp yx.sh /usr/bin/yx
-    sudo chmod +x /usr/bin/yx
+        sudo cp yx.sh /usr/bin/yx
+        sudo chmod +x /usr/bin/yx
 2.
-    yx 1.cpp
-    或
-    yx # 会自动选择最新的文件进行运行
+        yx 1.cpp
+        或
+        yx # 会自动选择最新的文件进行运行
