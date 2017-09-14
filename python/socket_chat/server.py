@@ -1,17 +1,19 @@
 from socket import AF_INET, SOCK_STREAM, socket
 from threading import Thread
+import threading
 
 # 客户端列表
 USERS = []
 
 HOST = ''
-PORT = 55557
+PORT = 55555
 
 ADDR = (HOST, PORT)
 
 server = socket(AF_INET, SOCK_STREAM)
 server.bind(ADDR)
 server.listen()
+mutex = threading.Lock()
 
 
 def link_send(user, massage):
@@ -49,7 +51,10 @@ def link_recv(client, addr):
     while True:
         data = client.recv(buff)
         if not data:
+
+            mutex.acquire()
             USERS.remove((client, addr))
+            mutex.release()
             massage = "%s:%d离开了聊天室" % (addr)
             send_mg_2_all(massage)
             print("%s:%d离开了聊天室" % (addr))
@@ -67,7 +72,9 @@ print("已经启动了聊天程序服务器等待用户连接......")
 while True:
     try:
         client, addr = server.accept()
+        mutex.acquire()
         USERS.append((client, addr))
+        mutex.release()
         print("欢迎%s:%d来到聊天室" % (addr))
         t = Thread(target=link_recv, args=(client, addr))
         t.setDaemon(True)

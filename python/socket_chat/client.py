@@ -2,7 +2,7 @@ from socket import AF_INET, SOCK_STREAM, socket
 from threading import Thread
 
 HOST = '127.0.0.1'
-PORT = 55557
+PORT = 55555
 
 ADDR = (HOST, PORT)
 
