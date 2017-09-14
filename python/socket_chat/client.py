@@ -15,6 +15,7 @@ def link_recv(server):
         massage = server.recv(buff)
         print(massage.decode('utf-8'))
 t = Thread(target=link_recv,args=(server,))
+# 新建一个线程用来监视服务器发送的消息
 t.setDaemon(True)
 t.start()
 while True:
