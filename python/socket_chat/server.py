@@ -95,6 +95,6 @@ while True:
         # 给所有的人发送欢迎消息
 
     except Exception as e:
-        捕获所有的错误 然后关闭服务器
+        # 捕获所有的错误 然后关闭服务器
         print(e)
         server.close()
