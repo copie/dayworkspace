@@ -1,10 +1,10 @@
+import random
+import smtplib
 from email import encoders
 from email.header import Header
-from email.mime.text import MIMEText
-from email.utils import parseaddr, formataddr
 from email.mime.multipart import MIMEMultipart
-import smtplib
-import random
+from email.mime.text import MIMEText
+from email.utils import formataddr, parseaddr
 
 
 class sendmail:

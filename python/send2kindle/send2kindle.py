@@ -1,8 +1,9 @@
-import sendmail as sm
-import getopt
-import sys
 import configparser
+import getopt
 import getpass
+import sys
+
+import sendmail as sm
 
 
 def Usage():
