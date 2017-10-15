@@ -4,7 +4,9 @@
 
 由于装饰器模式非常有用, 所以 Python 提供了原生支持。 在Python 语言中，函数与方法都可以用装饰器来装饰。此外还有"类装饰器"(class decorator),他也是一个单参数的函数，其参数是一个类，又这种装饰器所返回的新类的名称与原类相同，但功能更多。有时可以通过类装饰器来实现继承。
 
-例如 我在这篇 [blog] (https://copie.cn/index.php/archives/Python3%E5%8F%96%E6%B6%88cmp%E7%9A%84%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%B3%95-1.html)说到的**functools.total.ordering 装饰器**
+例如 我在这篇 [blog](https://copie.cn/index.php/archives/Python3%E5%8F%96%E6%B6%88cmp%E7%9A%84%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%B3%95-1.html)
+
+说到的**functools.total.ordering 装饰器**
 
 这个装饰器装饰的类必须提供__lt__(), __le__(), __gt__(), or __ge__()中的任意一个和__eq__().
 
