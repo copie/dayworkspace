@@ -8,7 +8,7 @@ from serial import Serial
 
 from ui import *
 
-KILL_THREAD_FLAG = Queue()
+KILL_THREAD_FLAG = Queue(1)
 
 
 class mythread(QThread):
@@ -21,11 +21,16 @@ class mythread(QThread):
 
     def run(self):
         while True:
-            text = self.server.read(1).decode()
-            print("hello")
-            self._signal.emit("hello world!")
-            self._signal.emit(text)
-            # time.sleep(0.5)
+            try:
+                text = self.server.read(1).decode()
+            except Exception as e:
+
+                print("hello world!")
+                print(e)
+            else:
+
+                print(text)
+                self._signal.emit(text)
             tmp = None
             try:
                 tmp = KILL_THREAD_FLAG.get_nowait()
@@ -60,28 +65,29 @@ class myserial:
             try:
                 self.server = Serial(port=self.port, baudrate=self.rate)
             except Exception as e:
-                self.ui.inputEdit.clear()                
-                self.ui.inputEdit.insertPlainText("打开串口失败请选择适当的端口,并添加权限")                
+                self.ui.inputEdit.clear()
+                self.ui.inputEdit.insertPlainText("打开串口失败请选择适当的端口,并添加权限")
             else:
-                
+
                 if self.server.isOpen() is True:
                     print("打开串口成功")
                     self.ui.openCloseButton.setText("关闭串口")
                     self.thread = mythread(self.server, 'shabi')
-                    self.thread._signal.connect(self.ui.outputEdit.insertPlainText)
+                    self.thread._signal.connect(
+                        self.ui.outputEdit.insertPlainText)
                     self.thread.start()
-                    self.thread.wait(1)
         else:
             self.server.close()
             if self.server.isOpen() is False:
                 print("关闭串口成功")
                 self.ui.openCloseButton.setText("打开串口")
                 KILL_THREAD_FLAG.put("shabi")
+                time.sleep(0.5)
 
     def _get_info(self):
         self.port = self.ui.portBox.currentText()
         self.rate = self.ui.rateBox.currentText()
-    
+
     def send_msg(self):
         text = self.ui.inputEdit.toPlainText()
         try:
@@ -92,7 +98,6 @@ class myserial:
         else:
             self.ui.inputEdit.clear()
             self.ui.inputEdit.focusWidget()
-        
 
 
 def main():
