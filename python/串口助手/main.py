@@ -22,15 +22,20 @@ class mythread(QThread):
     def run(self):
         while True:
             try:
-                text = self.server.read(1).decode()
+                print(self.server.isOpen())
+                text = self.server.read(1)
             except Exception as e:
-
                 print("hello world!")
                 print(e)
+                # self.server.close()
+                return
             else:
-
-                print(text)
-                self._signal.emit(text)
+                try:
+                    text =  text.decode()
+                except UnicodeDecodeError as e:
+                    self._signal.emit(str(text))
+                else:
+                    self._signal.emit(text)
             tmp = None
             try:
                 tmp = KILL_THREAD_FLAG.get_nowait()
