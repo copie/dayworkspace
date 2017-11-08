@@ -7,17 +7,24 @@ import os
 import pyperclip
 
 
-class shuru:
+class easyInput:
+    _display = Display(os.environ['DISPLAY'])
+
     def __init__(self):
-        self._display = Display(os.environ['DISPLAY'])
         self.app = QApplication(sys.argv)
         self.mainWindow = QMainWindow()
         self.ui = Ui_mainWindow()
         self.ui.setupUi(self.mainWindow)
         self.mainWindow.setWindowTitle("方便输入")
+
+    def run(self):
+
         self.mainWindow.move(*self._position())
         # 输入结束信号连接run槽
-        self.ui.lineEdit.editingFinished.connect(self.run)
+        self.ui.lineEdit.editingFinished.connect(self.call_action)
+        # 重写keyPressEvent
+        self.ui.lineEdit.keyPressEvent = self.keypressevent(
+            self.ui.lineEdit.keyPressEvent)
         # 窗口透明
         self.mainWindow.setWindowOpacity(0.7)
         # 去除顶栏
@@ -26,23 +33,33 @@ class shuru:
         sys.exit(self.app.exec_())
 
     # 获取鼠标的绝对位置
-    def _position(self):
-        pos_info = self._display.screen().root.query_pointer()._data
+    @classmethod
+    def _position(cls):
+        pos_info = cls._display.screen().root.query_pointer()._data
         return pos_info['root_x'], pos_info['root_y']
 
-    def run(self):
-        t = self.ui.lineEdit.text()
-        self.write_paste(t)
+    def call_action(self):
+        text = self.ui.lineEdit.text()
+        self.write_paste(text)
         self.app.exit()
 
-    def write_paste(self, text):
+    def keypressevent(self, fun):
+        def warr(event):
+            if event.key() == QtCore.Qt.Key_Escape:
+                self.call_action()
+            else:
+                fun(event)
+        return warr
+
+    @staticmethod
+    def write_paste(text):
         pyperclip.copy(text)
         print("假设我已经写入到了剪切板")
 
 
 def main():
-    shuru()
-
+    window = easyInput()
+    window.run()
 
 if __name__ == '__main__':
     main()
