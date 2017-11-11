@@ -1,3 +1,14 @@
+'''
+前几天看别人的面试题，看到好几次对一个特别大的文件进行处理 比如排序 还有一些别的操作
+仔细思考了一下 思路就是 以下几个方面
+1. 将一个大文件进行分割成为大小合适的子文本
+2. 对每一个子文本进行排序操作
+3. 使用归并排序对将子文件进行排序合并成为一个排序好的文件
+如果想使用这个类需要重写 deal_input_line 和 deal_output_line 这两个方法以满足自己的需求
+具体的使用例子看 同文件夹里面的test.py 这是一个简单的例子可以按照里面的进行写出符合自己需求的代码
+'''
+
+
 class big_file_sort:
     def __init__(self):
         # 分割的子文件的数量
@@ -8,7 +19,8 @@ class big_file_sort:
         self.max_class = None
         # 每个文件最大的行数
         self.max_line_cont = None
-        self.result_file_name = None
+        # 结果文件的文件名 默认为 result.txt
+        self.result_file_name = 'result.txt'
 
     def split_file(self):
         with open(self.big_file_name, 'r') as file:
@@ -16,7 +28,6 @@ class big_file_sort:
             j = 0
             tmp_file = open(f"tmp_file_{cont}.txt", 'w')
             for line in file:
-                print("hello")
                 if j == self.max_line_cont:
                     cont += 1
                     j = 0
@@ -43,7 +54,6 @@ class big_file_sort:
                       for i in range(self._ch_file_cont + 1)]
         tmpl = list(map(next, sort_files))
         i = 0
-        l = 0
         while True:
             if i == self._ch_file_cont + 1:
                 print("结束了")
@@ -61,16 +71,14 @@ class big_file_sort:
             try:
                 result.write(tmpl[min_index])
                 tmpl[min_index] = next(sort_files[min_index])
-            except:
+            except StopIteration:
+                # 到达了一个文件的结尾
                 i += 1
-                print(i)
+                # 记录结束的文件数 加一
                 tmpl[min_index] = self.deal_output_line(self.max_class)
-            l += 1
-            if l % 10000 == 0:
-                print(l)
 
     def deal_input_line(self, line):
-        pass
+        return line
 
     def deal_output_line(self, line):
-        pass
+        return line
