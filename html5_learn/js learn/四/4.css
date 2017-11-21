@@ -1,0 +1,11 @@
+li{
+    float: left;
+    list-style-type: none;
+    width: 40px;
+    /* height: 40px; */
+    margin: 5px;
+    text-align: center;
+    /* line-height: 40px; */
+    color: #ffffff;
+    background-color: rgb(255, 57, 57);
+}
