@@ -247,3 +247,481 @@ dir() 函数适用于所有对象类型，包括字符串、整数、列表、�
 
     >>> dir("Hello world!")
     ['__add__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getnewargs__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mod__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__rmod__', '__rmul__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'capitalize', 'casefold', 'center', 'count', 'encode', 'endswith', 'expandtabs', 'find', 'format', 'format_map', 'index', 'isalnum', 'isalpha', 'isdecimal', 'isdigit', 'isidentifier', 'islower', 'isnumeric', 'isprintable', 'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 'maketrans', 'partition', 'replace', 'rfind', 'rindex', 'rjust', 'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 'title', 'translate', 'upper', 'zfill']
+
+自己尝试下列示例以观察它们返回什么。注： # 字符标记注释的开始。Python 将忽略从注释开始部分到该行结束之间的所有内容：
+
+代码段二十二: 将 dir() 运用于其它对象
+
+    dir(42)   # Integer (and the meaning of life)
+    dir([])   # List (an empty list, actually)
+    dir(())   # Tuple (also empty)
+    dir({})   # Dictionary (ditto)
+    dir(dir)  # Function (functions are also objects)
+
+
+为了说明 Python 自省能力的动态本质，让我们研究将 dir() 运用于定制类和一些类实例的示例。我们将以交互方式定义自己的类，创建一些类的实例，仅向其中一个实例添加唯一的属性，并观察 Python 能否一直保存所有这些。以下是结果：
+
+代码段二十三:  将 dir() 运用于定制类、类实例和属性
+
+    In [1]: class Person():
+    ...:     '''一个 Person 类'''
+    ...: 
+    ...:     def __init__(self, name, age):
+    ...:         self.name = name
+    ...:         self.age = age
+    ...:     def intro(self):
+    ...:         '''一个人的自我介绍'''
+    ...:         return f"hello ,my name is {self.name} and I'm {self.age}"
+    ...: 
+
+    In [2]: xu = Person("xu",22)
+
+    In [3]: copie = Person("copie",21)
+
+    In [4]: copie.sport = "codeing"
+
+    In [5]: dir(Person)
+    Out[5]: 
+    ['__class__',
+    '__delattr__',
+    '__dict__',
+    '__dir__',
+    '__doc__',
+    '__eq__',
+    '__format__',
+    '__ge__',
+    '__getattribute__',
+    '__gt__',
+    '__hash__',
+    '__init__',
+    '__init_subclass__',
+    '__le__',
+    '__lt__',
+    '__module__',
+    '__ne__',
+    '__new__',
+    '__reduce__',
+    '__reduce_ex__',
+    '__repr__',
+    '__setattr__',
+    '__sizeof__',
+    '__str__',
+    '__subclasshook__',
+    '__weakref__',
+    'intro']
+
+    In [6]: dir(xu)
+    Out[6]: 
+    ['__class__',
+    '__delattr__',
+    '__dict__',
+    '__dir__',
+    '__doc__',
+    '__eq__',
+    '__format__',
+    '__ge__',
+    '__getattribute__',
+    '__gt__',
+    '__hash__',
+    '__init__',
+    '__init_subclass__',
+    '__le__',
+    '__lt__',
+    '__module__',
+    '__ne__',
+    '__new__',
+    '__reduce__',
+    '__reduce_ex__',
+    '__repr__',
+    '__setattr__',
+    '__sizeof__',
+    '__str__',
+    '__subclasshook__',
+    '__weakref__',
+    'age',
+    'intro',
+    'name']
+
+    In [7]: dir(copie)
+    Out[7]: 
+    ['__class__',
+    '__delattr__',
+    '__dict__',
+    '__dir__',
+    '__doc__',
+    '__eq__',
+    '__format__',
+    '__ge__',
+    '__getattribute__',
+    '__gt__',
+    '__hash__',
+    '__init__',
+    '__init_subclass__',
+    '__le__',
+    '__lt__',
+    '__module__',
+    '__ne__',
+    '__new__',
+    '__reduce__',
+    '__reduce_ex__',
+    '__repr__',
+    '__setattr__',
+    '__sizeof__',
+    '__str__',
+    '__subclasshook__',
+    '__weakref__',
+    'age',
+    'intro',
+    'name',
+    'sport']
+
+    In [8]: xu.intro()
+    Out[8]: "hello ,my name is xu and I'm 22"
+
+    In [9]: dir(xu.intro)
+    Out[9]: 
+    ['__call__',
+    '__class__',
+    '__delattr__',
+    '__dir__',
+    '__doc__',
+    '__eq__',
+    '__format__',
+    '__func__',
+    '__ge__',
+    '__get__',
+    '__getattribute__',
+    '__gt__',
+    '__hash__',
+    '__init__',
+    '__init_subclass__',
+    '__le__',
+    '__lt__',
+    '__ne__',
+    '__new__',
+    '__reduce__',
+    '__reduce_ex__',
+    '__repr__',
+    '__self__',
+    '__setattr__',
+    '__sizeof__',
+    '__str__',
+    '__subclasshook__']
+
+## 文档字符串
+
+在许多 dir() 示例中，您可能会注意到的一个属性是 __doc__ 属性。这个属性是一个字符串，它包含了描述对象的注释。Python 称之为文档字符串或 docstring，以下是其工作原理。如果模块、类、方法或函数定义的第一条语句是字符串，那么该字符串会作为对象的 __doc__ 属性与该对象关联起来。例如，看一下 __builtins__ 对象的文档字符串。因为文档字符串通常包含嵌入的换行 \n ，我们将使用 Python 的 print 语句，以便输出更易于阅读：
+
+代码段二十四: 模块文档字符串
+
+    In [10]: print(__builtins__.__doc__)
+    Built-in functions, exceptions, and other objects.
+
+    Noteworthy: None is the `nil' object; Ellipsis represents `...' in slices.
+
+Python 甚至再次维持了在 Python shell 中以交互方式定义的类和方法上的文档字符串。让我们研究 Person 类及其 intro 方法的文档字符串：
+
+代码段二十五: 类和方法文档字符串
+
+    In [11]: Person.__doc__
+    Out[11]: '一个 Person 类'
+
+    In [12]: copie.__doc__
+    Out[12]: '一个 Person 类'
+
+    In [13]: copie.intro.__doc__
+    Out[13]: '一个人的自我介绍'
+
+因为文档字符串提供了如此有价值的信息，所以许多 Python 开发环境都有自动显示对象的文档字符串的方法。让我们再看一个 dir() 函数的文档字符串：
+
+代码段二十六: 函数文档字符串
+
+    In [14]: print(dir.__doc__)
+    dir([object]) -> list of strings
+
+    If called without an argument, return the names in the current scope.
+    Else, return an alphabetized list of names comprising (some of) the attributes
+    of the given object, and of attributes reachable from it.
+    If the object supplies a method named __dir__, it will be used; otherwise
+    the default dir() logic is used and returns:
+    for a module object: the module's attributes.
+    for a class object:  its attributes, and recursively the attributes
+        of its bases.
+    for any other object: its attributes, its class's attributes, and
+        recursively the attributes of its class's base classes.
+
+
+检查 Python 对象
+
+我们好几次提到了“对象（object）”这个词，但一直没有真正定义它。编程环境中的对象很象现实世界中的对象。实际的对象有一定的形状、大小、重量和其它特征。实际的对象还能够对其环境进行响应、与其它对象交互或执行任务。计算机中的对象试图模拟我们身边现实世界中的对象，包括象文档、日程表和业务过程这样的抽象对象。
+
+类似于实际的对象，几个计算机对象可能共享共同的特征，同时保持它们自己相对较小的变异特征。想一想您在书店中看到的书籍。书籍的每个物理副本都可能有污迹、几张破损的书页或唯一的标识号。尽管每本书都是唯一的对象，但都拥有相同标题的每本书都只是原始模板的实例，并保留了原始模板的大多数特征。
+对于面向对象的类和类实例也是如此。例如，可以看到每个 Python 字符串都被赋予了一些属性， dir() 函数揭示了这些属性。在前一个示例中，我们定义了自己的 Person 类，它担任创建个别 Person 实例的模板，每个实例都有自己的 name 和 age 值，同时共享自我介绍的能力。这就是面向对象。
+
+于是在计算机术语中，对象是拥有标识和值的事物，属于特定类型、具有特定特征和以特定方式执行操作。并且，对象从一个或多个父类继承了它们的许多属性。除了关键字和特殊符号（象运算符，如 + 、 - 、 * 、 ** 、 / 、 % 、 < 、 > 等）外，Python 中的所有东西都是对象。Python 具有一组丰富的对象类型：字符串、整数、浮点、列表、元组、字典、函数、类、类实例、模块、文件等。
+当您有一个任意的对象（也许是一个作为参数传递给函数的对象）时，可能希望知道一些关于该对象的情况。在本节中，我们将向您展示如何让 Python 对象回答如下问题：
+
+1. 对象的名称是什么？
+2. 这是哪种类型的对象？
+3. 对象知道些什么？
+4. 对象能做些什么？
+5. 对象的父对象是谁？
+
+### 名称
+并非所有对象都有名称，但那些有名称的对象都将名称存储在其 __name__ 属性中。注：名称是从对象而不是引用该对象的变量中派生的。下面这个示例着重说明了这种区别：
+
+代码段二十七: 名称中有什么
+
+    >>> dir()
+    ['__annotations__', '__builtins__', '__doc__', '__loader__', '__name__', '__package__', '__spec__']
+    >>> directory = dir
+    >>> directory()
+    ['__annotations__', '__builtins__', '__doc__', '__loader__', '__name__', '__package__', '__spec__', 'directory']
+    >>> dir.__name__
+    'dir'
+    >>> directory.__name__
+    'dir'
+    >>> __name__
+    '__main__'
+
+模块拥有名称，Python 解释器本身被认为是顶级模块或主模块。当以交互的方式运行 Python 时，局部 __name__ 变量被赋予值 '__main__' 。同样地，当从命令行执行 Python 模块，而不是将其导入另一个模块时，其 __name__ 属性被赋予值 '__main__' ，而不是该模块的实际名称。这样，模块可以查看其自身的 __name__ 值来自行确定它们自己正被如何使用，是作为另一个程序的支持，还是作为从命令行执行的主应用程序。因此，下面这条惯用的语句在 Python 模块中是很常见的：
+
+代码段二十八: 用于执行或者导入的测试
+
+    In [2]: if __name__ == "__main__":
+    ...:     # 做一些事情在这里比如调用一个main() 它被定义在其他地方
+    ...:     pass
+    ...: else:
+    ...:     # 什么事情也不做.当这个模块被其他的模块导入的时候,想要用这个模块的函数,类还有
+    ...: 其他
+    ...:     pass
+    ...: 
+
+### 类型
+
+type() 函数有助于我们确定对象是字符串还是整数，或是其它类型的对象。它通过返回类型对象来做到这一点，可以将这个类型对象与 types 模块中定义的类型相比较：
+
+    In [3]: import types
+
+    In [4]: print(types.__doc__)
+
+    Define names for built-in types that aren't directly accessible as a builtin.
+
+    In [11]: x = lambda x:x
+    In [14]: type(x) == types.LambdaType
+    Out[14]: True
+    In [15]: type(42)
+    Out[15]: int
+
+    In [16]: type(x)
+    Out[16]: function
+
+    In [17]: type([])
+    Out[17]: list
+
+    In [18]: type(())
+    Out[18]: tuple
+
+    In [19]: type({})
+    Out[19]: dict
+
+    In [20]: type(dir)
+    Out[20]: builtin_function_or_method
+
+### 标识
+
+先前我们说过，每个对象都有标识、类型和值。值得注意的是，可能有多个变量引用同一对象，同样地，变量可以引用看起来相似（有相同的类型和值），但拥有截然不同标识的多个对象。当更改对象时（如将某一项添加到列表），这种关于对象标识的概念尤其重要，如在下面的示例中， blist 和 clist 变量引用同一个列表对象。正如您在示例中所见， id() 函数给任何给定对象返回唯一的标识符：
+
+代码段三十: 目的地
+
+    In [2]: alist = [1,2,3]
+
+    In [3]: blist = [1,2,3]
+
+    In [4]: clist = blist
+
+    In [5]: clist
+    Out[5]: [1, 2, 3]
+
+    In [6]: clist
+    Out[6]: [1, 2, 3]
+
+    In [7]: alist
+    Out[7]: [1, 2, 3]
+
+    In [8]: id(alist)
+    Out[8]: 140170172530184
+
+    In [9]: id(blist)
+    Out[9]: 140170172738632
+
+    In [10]: id(clist)
+    Out[10]: 140170172738632
+
+    In [11]: alist is blist
+    Out[11]: False
+
+    In [12]: blist is clist
+    Out[12]: True
+
+    In [13]: clist.append(4)
+    In [15]: clist
+    Out[15]: [1, 2, 3, 4]
+
+    In [16]: blist
+    Out[16]: [1, 2, 3, 4]
+
+    In [17]: alist
+    Out[17]: [1, 2, 3]
+
+### 属性
+
+我们已经看到对象拥有属性，并且 dir() 函数会返回这些属性的列表。但是，有时我们只想测试一个或多个属性是否存在。如果对象具有我们正在考虑的属性，那么通常希望只检索该属性。这个任务可以由 hasattr() 和 getattr() 函数来完成，如本例所示：
+
+代码段三十一: 具有一个属性;获得一个属性
+
+    In [18]: print(hasattr.__doc__)
+    Return whether the object has an attribute with the given name.
+
+    This is done by calling getattr(obj, name) and catching AttributeError.
+
+    In [19]: print(getattr.__doc__)
+    getattr(object, name[, default]) -> value
+
+    Get a named attribute from an object; getattr(x, 'y') is equivalent to x.y.
+    When a default argument is given, it is returned when the attribute doesn't
+    exist; without it, an exception is raised in that case.
+
+    In [20]: hasattr(id,"__doc__")
+    Out[20]: True
+
+    In [21]: print(getattr(id,"__doc__"))
+    Return the identity of an object.
+
+    This is guaranteed to be unique among simultaneously existing objects.
+    (CPython uses the object's memory address.)
+
+### 可调用性
+
+可以调用表示潜在行为（函数和方法）的对象。可以用 callable() 函数测试对象的可调用性：
+
+    In [23]: callable("一个字符串")
+    Out[23]: False
+
+    In [24]: callable(dir)
+    Out[24]: True
+    In [31]: class test:
+    ...:     def __call__(self):
+    ...:         print("哈哈对象可以直接调用了")
+    ...:
+    In [32]: x = test()
+    In [33]: x()
+    哈哈对象可以直接调用了
+
+
+### 实例
+
+在 type() 函数提供对象的类型时，还可以使用 isinstance() 函数测试对象，以确定它是否是某个特定类型或定制类的实例：
+
+代码段三十三: 你是那些实例中的一个吗?
+
+    In [34]: print(isinstance.__doc__)
+    Return whether an object is an instance of a class or of a subclass thereof.
+
+    A tuple, as in ``isinstance(x, (A, B, ...))``, may be given as the target to
+    check against. This is equivalent to ``isinstance(x, A) or isinstance(x, B)
+    or ...`` etc.
+
+    In [35]: isinstance(42,str)
+    Out[35]: False
+
+    In [36]: isinstance("hello",str)
+    Out[36]: True
+
+    In [37]: isinstance(42,int)
+    Out[37]: True
+
+    In [38]: isinstance("hello",int)
+    Out[38]: False
+
+### 子类
+
+我们先前提到过，定制类的实例从该类继承了属性。在类这一级别，可以根据一个类来定义另一个类，同样地，这个新类会按照层次化的方式继承属性。Python 甚至支持多重继承，多重继承意味着可以用多个父类来定义一个类，这个新类继承了多个父类。 issubclass() 函数使我们可以查看一个类是不是继承了另一个类：
+
+代码三十四: 你是我母亲吗?
+
+    In [1]: class Person():
+    ...:     '''一个 Person 类'''
+    ...: 
+    ...:     def __init__(self, name, age):
+    ...:         self.name = name
+    ...:         self.age = age
+    ...:     def intro(self):
+    ...:         '''一个人的自我介绍'''
+    ...:         return f"hello ,my name is {self.name} and I'm {self.age}"
+    ...: 
+    ...: class SuperHero(Person):
+    ...:     def intro(self):
+    ...:         '''一个人的自我介绍'''
+    ...:         return f'Hello, I\'m SuperHero {self.name} and I\'m {self.age}'
+    ...:     
+
+    In [2]: issubclass(SuperHero,Person)
+    Out[2]: True
+
+    In [3]: issubclass(Person,SuperHero)
+    Out[3]: False
+
+## 检查时间
+
+让我们将上一节中讨论的几种检查技术结合起来。为了做到这一点，要定义自己的函数 — interrogate() ，它打印有关传递给它的任何对象的各种信息。以下是代码，后面是其用法的几个示例：
+
+代码段三十五: 谁也没料到它
+
+    In [4]: def interrogate(item):
+    ...:     """Print useful information about item."""
+    ...:     if hasattr(item,"__name__"):
+    ...:         print("NAME:        ",item.__name__)
+    ...:     if hasattr(item,"__class__"):
+    ...:         print("CLASS:       ",item.__class__.__name__)
+    ...:     print("ID       ",id(item))
+    ...:     print("TYPE:        ",type(item))
+    ...:     print("VALUE:       ",str(item))
+    ...:     print("CALLABLE:        ","YES" if callable(item) else "NO")
+    ...:     if hasattr(item,"__doc__"):
+    ...:         doc = getattr(item,"__doc__")
+    ...:         doc = doc.strip()
+    ...:         firstline = doc.split("\n")[0]
+    ...:         print("DOC:     ",firstline)
+    ...:         
+
+    In [5]: interrogate("我是字符串")
+    CLASS:        str
+    ID        140599610351312
+    TYPE:         <class 'str'>
+    VALUE:        我是字符串
+    CALLABLE:         NO
+    DOC:      str(object='') -> str
+
+    In [6]: interrogate(42)
+    CLASS:        int
+    ID        140599733153824
+    TYPE:         <class 'int'>
+    VALUE:        42
+    CALLABLE:         NO
+    DOC:      int(x=0) -> integer
+
+    In [7]: interrogate(interrogate)
+    NAME:         interrogate
+    CLASS:        function
+    ID        140599610533816
+    TYPE:         <class 'function'>
+    VALUE:        <function interrogate at 0x7fdfe5d767b8>
+    CALLABLE:         YES
+    DOC:      Print useful information about item.
+
+正如您在最后一个示例中所看到的， interrogate() 函数甚至可以应用于它本身。您没有再比它更具“自省性”的工具了。
+
+## 结束语
+
+谁知道自省可以变得这么简单而又如此有价值？可是，我在结束时必须提出警告：不要将自省的结果误认为是万能的。有经验的 Python 程序员知道：他们不知道的东西总是比已知的更多，因此根本不可能是万能的。编程行为产生的问题多于答案。关于 Python 的唯一优点（正如我们今天在本文中所见）是它确实回答了人们的问题。至于我本人，觉得您不必因为我帮助您了解了这些 Python 必须提供的内容而酬谢我。用 Python 编程自有回报。我从爱好 Python 的同伴处获得的帮助也是不计报酬的。
