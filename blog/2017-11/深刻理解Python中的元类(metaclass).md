@@ -36,31 +36,31 @@
 下面是示例：
 
 
-In [6]: print(ObjectCreator)        # 你可以打印一个类，因为它其实也是一个对象
-<class '__main__.ObjectCreator'>
+    In [6]: print(ObjectCreator)        # 你可以打印一个类，因为它其实也是一个对象
+    <class '__main__.ObjectCreator'>
 
-In [7]: def echo(o):
-   ...:     print(o)
-   ...:
+    In [7]: def echo(o):
+    ...:     print(o)
+    ...:
 
-In [8]: echo(ObjectCreator)     # 你可以将类做为参数传给函数
-<class '__main__.ObjectCreator'>
+    In [8]: echo(ObjectCreator)     # 你可以将类做为参数传给函数
+    <class '__main__.ObjectCreator'>
 
-In [10]: hasattr(ObjectCreator, 'new_attribute')
-Out[10]: False
+    In [10]: hasattr(ObjectCreator, 'new_attribute')
+    Out[10]: False
 
-In [11]: ObjectCreator.new_attribute = 'foo'        #  你可以为类增加属性
+    In [11]: ObjectCreator.new_attribute = 'foo'        #  你可以为类增加属性
 
-In [12]: hasattr(ObjectCreator, 'new_attribute')
-Out[12]: True
+    In [12]: hasattr(ObjectCreator, 'new_attribute')
+    Out[12]: True
 
-In [13]: ObjectCreator.new_attribute
-Out[13]: 'foo'
+    In [13]: ObjectCreator.new_attribute
+    Out[13]: 'foo'
 
-In [14]: ObjectCreatorMirror = ObjectCreator        # 你可以将类赋值给一个变量
+    In [14]: ObjectCreatorMirror = ObjectCreator        # 你可以将类赋值给一个变量
 
-In [15]: ObjectCreatorMirror()
-Out[15]: <__main__.ObjectCreator at 0x4c36240>
+    In [15]: ObjectCreatorMirror()
+    Out[15]: <__main__.ObjectCreator at 0x4c36240>
 
 
 ## 动态地创建类
