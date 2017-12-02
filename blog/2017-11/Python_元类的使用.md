@@ -126,7 +126,6 @@
 在 Python 中,我们可以用很多方法来实现单例模式:
 
 1. 使用模块
-2. 使用 __new__
 3. 使用装饰器(decorator)
 4. 使用元类
 
@@ -199,5 +198,22 @@ __call__方法其实和类的创建和实例化过程没有多大关系,定义�
     
     my_singleton.foo()
 
-### 使用 __new__
+### 使用元类
 
+    class Singleton(type):
+        def __call__(cls, *args, **kwargs):
+            if not hasattr(cls, '_instance'):
+                cls._instance = super(Singleton, cls).__call__(*args, **kwargs)
+            return cls._instance
+
+
+    class Foo(metaclass=Singleton):
+        pass
+
+
+    foo1 = Foo()
+    foo2 = Foo()
+
+    print(foo1 is foo2)  # True
+
+ps: 这个blog写不下去了   待我充电以后再战
