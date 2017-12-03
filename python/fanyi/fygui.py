@@ -65,7 +65,7 @@ class fygui():
         return pos_info['root_x'] + 50, pos_info['root_y'] + 50
 
     def fanyi(self):
-        if time.time() - self.time < 0.6:
+        if time.time() - self.time < 0.3:
             print("停一下")
             return
         self.time = time.time()
