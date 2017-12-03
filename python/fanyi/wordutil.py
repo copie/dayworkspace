@@ -39,8 +39,11 @@ class wordutil:
         self.addword(text['query'], 'green')
         self.addbr()
         self.addword("[译文]: ", 'green')
-        self.addword(",".join(text['translation']), 'blue')
-        self.addbr()
+        try:
+            self.addword(",".join(text['translation']), 'blue')
+            self.addbr()
+        except KeyError as e:
+            self.addword("翻译失败",'red')
         if "web" in text:
             self.addword('[网络翻译]:',"#CC00FF")
             self.addbr()
