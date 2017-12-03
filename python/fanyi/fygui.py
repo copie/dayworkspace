@@ -1,6 +1,6 @@
 import os
 import sys
-
+import time
 import requests
 from PyQt5 import QtCore
 from PyQt5.QtGui import QClipboard
@@ -25,6 +25,7 @@ class fygui():
         self.mainWindow.setWindowTitle("划词翻译")
         self.mainWindow.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         self.wordutil = wordutil()
+        self.time = time.time()
 
     @classmethod
     def _position(cls):
@@ -32,6 +33,10 @@ class fygui():
         return pos_info['root_x']+50, pos_info['root_y']+50
 
     def fanyi(self):
+        if time.time() - self.time < 0.6:
+            print("停一下")
+            return
+        self.time = time.time()
         if self.ui.textEdit.hasFocus():
             return
         self.mainWindow.move(*self._position())
