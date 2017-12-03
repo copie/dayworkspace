@@ -1,10 +1,12 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5 import QtCore
-from ui import *
-import sys
-from Xlib.display import Display
 import os
+import sys
+
 import pyperclip
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QApplication, QMainWindow
+
+from ui import *
+from Xlib.display import Display
 
 
 class easyInput:
@@ -60,6 +62,7 @@ class easyInput:
 def main():
     window = easyInput()
     window.run()
+
 
 if __name__ == '__main__':
     main()
