@@ -28,7 +28,13 @@ class wordutil:
         self.result = ''
 
     def execfind(self, var):
-        req = requests.get(self.url + var)
+        try:
+            req = requests.get(self.url + var)
+        except Exception as e:
+            print(e)
+            self.addword('请求翻译失败,请检查网络连接','red')
+            result, self.result = self.result, ''
+            return result
         text = req.json()
         if text['errorCode'] in self.errorCode:
             self.addword(self.errorCode[text['errorCode']], "red")
