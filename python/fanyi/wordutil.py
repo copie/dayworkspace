@@ -1,7 +1,9 @@
 import json
-import requests
-
-
+# import requests
+import urllib.error
+import urllib.parse
+import urllib.request
+import json
 class wordutil:
     def __init__(self):
         self.url = "http://fanyi.youdao.com/openapi.do?keyfrom=youdaomini&key=1877956118&type=data&doctype=json&version=1.1&q="
@@ -29,13 +31,17 @@ class wordutil:
 
     def execfind(self, var):
         try:
-            req = requests.get(self.url + var)
+            searchurl = self.url+urllib.parse.quote(var)
+            # req = requests.get(self.url + var)
+            req = urllib.request.Request(searchurl)
+            res_data = urllib.request.urlopen(req)
+            ret = res_data.read().decode('utf-8')
         except Exception as e:
             print(e)
             self.addword('请求翻译失败,请检查网络连接','red')
             result, self.result = self.result, ''
             return result
-        text = req.json()
+        text = json.loads(ret)
         if text['errorCode'] in self.errorCode:
             self.addword(self.errorCode[text['errorCode']], "red")
             result, self.result = self.result, ''
