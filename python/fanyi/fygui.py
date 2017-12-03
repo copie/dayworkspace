@@ -39,8 +39,10 @@ class fygui():
         self.time = time.time()
         if self.ui.textEdit.hasFocus():
             return
-        self.mainWindow.move(*self._position())
         text = self.clipboard.text(self.clipboard.Selection)
+        if len(text) > 20:
+            return
+        self.mainWindow.move(*self._position())
         texttmp = ""
         for c in text:
             if c.isupper():
