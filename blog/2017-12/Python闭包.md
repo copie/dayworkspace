@@ -109,12 +109,12 @@ series 的绑定在返回的 avg 函数的 __closure__ 属性中。avg.__closure
 
 代码段七
 
-In [7]: avg.__code__.co_freevars
-Out[7]: ('series',)
-In [8]: avg.__closure__
-Out[8]: (<cell at 0x7fad3eb8e1c8: list object at 0x7fad3d84e948>,)
-In [10]: avg.__closure__[0].cell_contents
-Out[10]: [10, 11, 12]
+    In [7]: avg.__code__.co_freevars
+    Out[7]: ('series',)
+    In [8]: avg.__closure__
+    Out[8]: (<cell at 0x7fad3eb8e1c8: list object at 0x7fad3d84e948>,)
+    In [10]: avg.__closure__[0].cell_contents
+    Out[10]: [10, 11, 12]
 
 综上,**闭包是一种函数,它会保留定义函数时存在的自由变量的绑定,这样调用函数时,虽然定义作用域不可用了,但是仍能使用那些绑定。**
 
