@@ -71,5 +71,5 @@ class wordutil:
     def addbr(self):
         self.result += '<br>'
 
-    def addword(self, word, color):
-        self.result += f'<font color="{color}">{word}</font>'
+    def addword(self, word, color,size=4):
+        self.result += f'<font  size="{size}" color="{color}">{word}</font>'
