@@ -15,7 +15,7 @@ class Ui_mainWindow(object):
         mainWindow.setMinimumSize(QtCore.QSize(604, 100))
         mainWindow.setMaximumSize(QtCore.QSize(604, 100))
         self.lineEdit = QtWidgets.QLineEdit(mainWindow)
-        self.lineEdit.setGeometry(QtCore.QRect(2, 0, 601, 101))
+        self.lineEdit.setGeometry(QtCore.QRect(0, 0, 601, 101))
         self.lineEdit.setMinimumSize(QtCore.QSize(601, 101))
         self.lineEdit.setMaximumSize(QtCore.QSize(601, 101))
         font = QtGui.QFont()
