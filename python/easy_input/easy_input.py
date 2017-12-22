@@ -7,8 +7,8 @@ from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Xlib.display import Display
 
-from ui import *
 from config import *
+from ui import *
 
 
 class easyInput:
@@ -64,7 +64,11 @@ class easyInput:
             self.ui.lineEdit.mouseDoubleClickEvent = self.config_panel
             # 恢复输入框里面的文字
             self.ui.lineEdit.setText(self.tmpText)
-
+    def close_back(self):
+        self._getconfig()
+        self._lodeconfig()
+        self.Dialog.close()
+        
     def config_panel(self, *kw):
         '''显示面板'''
         self.ui2.font_size.setValue(self.font_size)
@@ -81,7 +85,7 @@ class easyInput:
         self.ui2.font_color.textChanged.connect(self.value_change)
         self.ui2.background.textChanged.connect(self.value_change)
         self.ui2.save.clicked.connect(self.save)
-        self.ui2.close.clicked.connect(self.Dialog.close)
+        self.ui2.close.clicked.connect(self.close_back)
         self.Dialog.closeEvent = self.close
         self.Dialog.show()
 
