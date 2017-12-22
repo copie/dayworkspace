@@ -307,7 +307,30 @@
        </spacer>
       </item>
       <item>
-       <widget class="QLineEdit" name="background"/>
+       <widget class="QLineEdit" name="background">
+        <property name="maximumSize">
+         <size>
+          <width>170</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ch_backcolor">
+        <property name="maximumSize">
+         <size>
+          <width>20</width>
+          <height>37</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -339,7 +362,30 @@
        </spacer>
       </item>
       <item>
-       <widget class="QLineEdit" name="font_color"/>
+       <widget class="QLineEdit" name="font_color">
+        <property name="maximumSize">
+         <size>
+          <width>170</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ch_font_color">
+        <property name="maximumSize">
+         <size>
+          <width>20</width>
+          <height>37</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

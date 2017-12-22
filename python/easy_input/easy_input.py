@@ -4,7 +4,7 @@ import sys
 
 import pyperclip
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QColorDialog, QMainWindow
 from Xlib.display import Display
 
 from config import *
@@ -64,11 +64,22 @@ class easyInput:
             self.ui.lineEdit.mouseDoubleClickEvent = self.config_panel
             # 恢复输入框里面的文字
             self.ui.lineEdit.setText(self.tmpText)
+
     def close_back(self):
         self._getconfig()
         self._lodeconfig()
         self.Dialog.close()
-        
+
+    def ch_backcolor(self):
+        col = QColorDialog.getColor()
+        if col.isValid():
+            self.ui2.background.setText(col.name())
+
+    def ch_font_color(self):
+        col = QColorDialog.getColor()
+        if col.isValid():
+            self.ui2.font_color.setText(col.name())
+
     def config_panel(self, *kw):
         '''显示面板'''
         self.ui2.font_size.setValue(self.font_size)
@@ -86,6 +97,8 @@ class easyInput:
         self.ui2.background.textChanged.connect(self.value_change)
         self.ui2.save.clicked.connect(self.save)
         self.ui2.close.clicked.connect(self.close_back)
+        self.ui2.ch_backcolor.clicked.connect(self.ch_backcolor)
+        self.ui2.ch_font_color.clicked.connect(self.ch_font_color)
         self.Dialog.closeEvent = self.close
         self.Dialog.show()
 
@@ -142,7 +155,8 @@ class easyInput:
         self.mainWindow.setWindowOpacity(self.windowOpacity)
         self.ui.lineEdit.setStyleSheet(
             "background:{};color:{};".format(self.background, self.font_color))
-
+        self.ui2.ch_font_color.setStyleSheet("background:{}".format(self.font_color))
+        self.ui2.ch_backcolor.setStyleSheet("background:{};".format(self.background))
     def run(self):
         '''运行并显示窗口'''
         self.mainWindow.move(*self._position())
@@ -151,8 +165,9 @@ class easyInput:
         # 重写keyPressEvent
         self.ui.lineEdit.keyPressEvent = self.keypressevent(
             self.ui.lineEdit.keyPressEvent)
-        # 去除顶栏
-        self.mainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        # 去除顶栏 和 一直在顶部
+        self.mainWindow.setWindowFlags(
+            QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
 
         self._getconfig()
         self._lodeconfig()
