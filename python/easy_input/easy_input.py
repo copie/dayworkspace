@@ -28,7 +28,7 @@ class easyInput:
         self.config.read('.easy_input_rc')
         self.ui.lineEdit.mouseDoubleClickEvent = self.config_panel
         # 加载设置窗口
-        self.Dialog = QtWidgets.QDialog()
+        self.Dialog = QMainWindow()
         self.ui2 = Ui_config_panel()
         self.ui2.setupUi(self.Dialog)
         self.Dialog.setWindowTitle("设置")
