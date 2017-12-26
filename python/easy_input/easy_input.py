@@ -58,14 +58,13 @@ class easyInput:
             恢复输入框的状态
             即打开设置之前的状态'''
         if close_even.isAccepted() is True:
-            # 设置输入框可写
-            self.ui.lineEdit.setReadOnly(False)
-            # 双击输入框会弹出设置窗口
-            self.ui.lineEdit.mouseDoubleClickEvent = self.config_panel
+            # 设置输入框可操作
+            self.ui.lineEdit.setEnabled(True)
             # 恢复输入框里面的文字
             self.ui.lineEdit.setText(self.tmpText)
 
     def close_back(self):
+        '''没有保存设置恢复配置文件中的设置'''
         self._getconfig()
         self._lodeconfig()
         self.Dialog.close()
@@ -155,8 +154,11 @@ class easyInput:
         self.mainWindow.setWindowOpacity(self.windowOpacity)
         self.ui.lineEdit.setStyleSheet(
             "background:{};color:{};".format(self.background, self.font_color))
-        self.ui2.ch_font_color.setStyleSheet("background:{}".format(self.font_color))
-        self.ui2.ch_backcolor.setStyleSheet("background:{};".format(self.background))
+        self.ui2.ch_font_color.setStyleSheet(
+            "background:{}".format(self.font_color))
+        self.ui2.ch_backcolor.setStyleSheet(
+            "background:{};".format(self.background))
+
     def run(self):
         '''运行并显示窗口'''
         self.mainWindow.move(*self._position())
@@ -185,10 +187,10 @@ class easyInput:
         ''' 输入窗口认为自己输入结束后的动作
             用户按下回车
             输入框失去焦点'''
+        # 如果是因为设置界面弹出的话
         if self.Dialog.isVisible():
-            # 如果是因为设置界面弹出的话
-            self.ui.lineEdit.setReadOnly(True)
-            self.ui.lineEdit.mouseDoubleClickEvent = None
+            # 设置输入框不可操作
+            self.ui.lineEdit.setDisabled(True)
             self.tmpText = self.ui.lineEdit.text()
             self.ui.lineEdit.setText(self.test_text)
         else:
