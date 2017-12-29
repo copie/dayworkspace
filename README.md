@@ -18,9 +18,9 @@
 
 我喜欢平时学习 Python 的时候。为自己写一些代码，也就是一些微项目。加强自己的 Python 学习。
 
-## shell
+## script
 
-为了方便自己平时写代码以及其他写的一些 shell 脚本。
+为了方便自己平时写代码以及其他写的一些脚本shell PowerShell 等。
 
 ## spider
 
