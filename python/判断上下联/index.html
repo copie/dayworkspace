@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>在线分辨上下联</title>
+    <script>
+        header('Access-Control-Allow-Methods:POST');  
+        function sendAjax(str1,str2) {
+            //构造表单数据
+            var formData = new FormData();
+            formData.append('shang', str1);
+            formData.append('xia', str2);
+            //创建xhr对象 
+            var xhr = new XMLHttpRequest();
+            //设置xhr请求的超时时间
+            xhr.timeout = 3000;
+            //设置响应返回的数据格式
+            xhr.responseType = "text";
+            //创建一个 post 请求，采用异步
+            xhr.open('POST', "/", true);
+            //注册相关事件回调处理函数
+            xhr.onreadystatechange = function (e) {
+                if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                    ans = this.responseText;
+                    testJson = eval("(" + ans + ")");
+                    document.getElementById('duilian').innerHTML = testJson['上联']+"<br><br>"+testJson['下联'];
+                }
+            };
+
+            xhr.send(formData);
+
+        }
+        function get_duilian() {
+            str1 = document.getElementById("str1").value;
+            str2 = document.getElementById("str2").value;
+            console.log(str1, str2);
+            sendAjax(str1,str2);
+        }
+    </script>
+    <style>
+        .div1 {
+            text-align: center;
+            width: 100%;
+        }
+
+        .verticle-mode {
+            writing-mode: tb-rl;
+            -webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl;
+            width: 50%;
+        }
+
+        .verticle-mode p {
+            *display: inline;
+            *writing-mode: tb-rl;
+            font-size: 30pt;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        一个半句:
+        <input type="text" id="str1" />
+        <br> 另一半句:
+        <input type="text" id="str2" />
+        <br>
+        <input type="button" value="提交" onclick="get_duilian();" />
+        <br>
+    </div>
+    <div class="xiaoguo">
+        <div class="div1">
+            <div class="verticle-mode">
+                <p id='duilian'>旭日东升江山万里春意闹
+                    <br>
+                    <br>东风劲吹神州一片百花鲜</p>
+            </div>
+        </div>
+        <div class="ps">
+            <p>这里看到是什么样子,就在门上贴成什么样子</p>
+            <p>右面是上联,左面是下联</p>
+        </div>
+    </div>
+</body>
+
+</html>
