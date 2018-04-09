@@ -1,4 +1,84 @@
- # docker  使用总结
+# docker  使用总结
+
+## doker 基础命令
+
+1. **docker build**
+
+    > 通过 dockerfile 新建一个镜像
+
+    >> 主要可选的参数有
+    >>> -f 指定dockerfile</br>
+    >>> -c 与CPU相关</br>
+    >>> -m 与内存相关</br>
+    >>> -t 名称列表和标签 'name：tag'</br>
+
+    >> 简单的例子
+    >>> docker build -f dockerfile -t test:test .
+
+    >> 注意在最后指定 PATH 也就是 最后的那个 .
+
+2. **docker ps**
+
+    > 列出正在运行的容器
+
+    >> 它有几个简单的参数这里就不多说了详情看 docker ps --help
+
+    >> 简单的例子
+    >>> docker ps -n -1
+
+3. **docker commit**
+
+    > 提交一个新的 image 由于容器在下一次开启的时候不会保存上一次运行产生的修改所以这个提交还是很有必要的
+
+    >> docker commit 3a43df2d7059 test:test
+
+4. **docker pull**
+
+    > 从仓库里面拉取一个镜像
+    >> 简单的例子
+    >>> docker pull hello-world
+
+5. **docker run**
+
+    > 运行一个容器
+    >>> -d 后台运行一个容器，并返回容器的ID</br>
+    >>> -i 以交互模式运行容器，通常与 -t 同时使用</br>
+    >>> -t 为容器重新分配一个伪输入终端，通常与 -i 同时使用</br>
+    >>> -p 手动端口映射</br>
+    >>> -P 自动随机端口映射</br>
+    >>> -v 挂载本地目录到容器(填写绝对路径)</br>
+    >>> --net="bridge" 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型</br>
+    >>> --link=[]: 添加链接到另一个容器</br>
+
+    >> 简单的例子
+    >>> docker run -it c712034 /bin/bash</br>
+    >>> docker run -d c71</br>
+    >>> docker run -Pd c71</br>
+    >>> docker run -d -p 8000:80 -p 2222:22 06a # -p 宿主机端口:容器端口</br>
+    >>> docker run -d -v /home/copie/Desktop/sample:/app 06a</br>
+
+6. **docker stop**
+
+    > 关闭一个容器
+    >> 简单的例子
+    >>> docker stop d5f19
+
+7. **dicker exec**
+
+    > 在运行的容器中执行命令(解决如何进入在后台运行的容器)
+    >> 简单的例子
+    >>> docker exec -it d5 /bin/bash
+
+8. **docker rmi**
+
+    > 删除一个或多个镜像
+    >>> -f 强制删除
+
+    >> 简单的例子
+    >>> docker rmi 06a -f
+
+**这里是我最常用的一些命令**
+
 
 ## dockerfile 编写
 
@@ -50,7 +130,7 @@ INSTRUCTION指令是不区分大小写的，但是为了便于区分建议使用
 ```MAINTAINER copie```
 
 ### RUN
- 
+
 ```RUN  command parameter```
 
 + 每条RUN指令将在当前镜像基础上执行指定命令，并提交为新的镜像，后续的RUN都在之前RUN提交后的镜像为基础，镜像是分层的，可以通过一个镜像的任何一个历史提交点来创建，类似源码的版本控制。
@@ -100,7 +180,7 @@ ENV myDog Rex The Dog
 ENV myCat fluffy
 ```
 
-### ADD 
+### ADD
 
 ```ADD <src>... <dest>```
 
