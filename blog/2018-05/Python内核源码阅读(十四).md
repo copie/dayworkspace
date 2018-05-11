@@ -65,7 +65,9 @@ struct _dictkeysobject {
     dict_lookup_func dk_lookup;
 
     /* Number of usable entries in dk_entries. */
-    // Active + Dummy 元素个数
+    // 可用的元素个数 
+    // #define USABLE_FRACTION(n) (((n) << 1)/3)
+    // 这个值是通过上面的宏算出来的
     Py_ssize_t dk_usable;
 
     /* Number of used entries in dk_entries. */
